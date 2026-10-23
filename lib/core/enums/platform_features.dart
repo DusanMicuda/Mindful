@@ -18,4 +18,6 @@ enum PlatformFeatures {
   facebookReels,
   redditShorts,
   youtubeShorts,
+  instagramHomeFeed,
+  facebookHomeFeed,
 }

@@ -829,6 +829,10 @@ class AppLocalizationsPt extends AppLocalizations {
   String get instagram_features_block_explore => 'Restringir a seção explorar.';
 
   @override
+  String get instagram_features_block_home_feed =>
+      'Hide home feed, keep Following feed.';
+
+  @override
   String get snapchat_features_tile_title => 'Snapchat';
 
   @override
@@ -854,6 +858,13 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get facebook_features_tile_subtitle => 'Restringir reels no Facebook.';
+
+  @override
+  String get facebook_features_block_reels => 'Restrict reels section.';
+
+  @override
+  String get facebook_features_block_home_feed =>
+      'Hide home feed, keep Friends feed.';
 
   @override
   String get reddit_features_tile_title => 'Reddit';

@@ -174,7 +174,21 @@ class ShortsPlatformManager(
             "web.snapchat.com/discover/"
         )
 
-        private val mFbNodeTexts = listOf("Add a comment", "कमेंट जोड़ें…")
+        // ponytail: flat label lists across languages, any match counts. New language = append its label here + a test case. Per-locale map only when two languages' labels collide.
+        private val FB_REELS_TAB_PREFIXES = listOf("Reels,")
+
+        private val FB_REELS_DESCS = listOf(
+            "Podrobnosti karty s reelmi",
+            "Prejsť na váš profil v Reels",
+            "Go to your Reels profile",
+        )
+
+        private val FB_REELS_LABELS = listOf(
+            "Add a comment",
+            "Write a comment\u2026",
+            "कमेंट जोड़ें…",
+            "Napíšte komentár\u2026",
+        )
 
 
         /**
@@ -239,19 +253,34 @@ class ShortsPlatformManager(
             node: AccessibilityNodeInfo,
             blockedFeatures: Set<PlatformFeatures>,
         ): Boolean {
-            // TODO: Add more string translated from different languages for the node text
-            //  as user may have set different language for facebook app
+            if (PlatformFeatures.FACEBOOK_REELS !in blockedFeatures) return false
 
-            if (PlatformFeatures.FACEBOOK_REELS in blockedFeatures) {
-                for (text in mFbNodeTexts) {
-                    if (node.findAccessibilityNodeInfosByText(text).isNotEmpty()) {
-                        return true
-                    }
-                }
-            }
+            // Single early-exit walk; the hit's own facts feed the pure rule.
+            val exact = (FB_REELS_DESCS + FB_REELS_LABELS).toSet()
+            val hit = node.findVisibleNode { n ->
+                val desc = n.contentDescription?.toString()
+                (n.isSelected && desc != null && FB_REELS_TAB_PREFIXES.any(desc::startsWith)) ||
+                        n.text?.toString() in exact || desc in exact
+            } ?: return false
 
-            return false
+            val desc = hit.contentDescription?.toString()
+            val reelsTabSelected =
+                hit.isSelected && desc != null && FB_REELS_TAB_PREFIXES.any(desc::startsWith)
+            return isFacebookReelsOpen(
+                { it == hit.text?.toString() || it == desc },
+                { reelsTabSelected },
+            )
         }
+
+        /**
+         * Checks if Facebook Reels is open: Reels tab selected, or a known Reels desc/label present.
+         */
+        internal fun isFacebookReelsOpen(
+            hasText: (String) -> Boolean,
+            hasSelectedDescPrefix: (List<String>) -> Boolean,
+        ): Boolean = hasSelectedDescPrefix(FB_REELS_TAB_PREFIXES) ||
+                FB_REELS_DESCS.any(hasText) ||
+                FB_REELS_LABELS.any(hasText)
 
         /**
          * Checks if Reddit Shorts is open.

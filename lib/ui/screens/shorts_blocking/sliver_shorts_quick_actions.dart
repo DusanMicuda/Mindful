@@ -103,6 +103,20 @@ class SliverShortsQuickActions extends ConsumerWidget {
                   PlatformFeatures.instagramExplore,
                 ),
               ),
+
+              /// Home feed
+              DefaultListTile(
+                position: ItemPosition.mid,
+                titleText: context.locale.instagram_features_block_home_feed,
+                switchValue: blockedFeatures
+                    .contains(PlatformFeatures.instagramHomeFeed),
+                onPressed: () => _toggleFeature(
+                  context,
+                  ref,
+                  blockedFeatures,
+                  PlatformFeatures.instagramHomeFeed,
+                ),
+              ),
             ],
           ),
         ),
@@ -164,18 +178,42 @@ class SliverShortsQuickActions extends ConsumerWidget {
         ),
 
         /// Block facebook reels
-        DefaultListTile(
+        DefaultExpandableListTile(
           position: ItemPosition.mid,
           leading: _buildIcon(context, "assets/vectors/facebook.svg"),
           enabled: haveNecessaryPerms,
           titleText: context.locale.facebook_features_tile_title,
           subtitleText: context.locale.facebook_features_tile_subtitle,
-          switchValue: blockedFeatures.contains(PlatformFeatures.facebookReels),
-          onPressed: () => _toggleFeature(
-            context,
-            ref,
-            blockedFeatures,
-            PlatformFeatures.facebookReels,
+          content: Column(
+            children: [
+              /// Reels
+              DefaultListTile(
+                position: ItemPosition.mid,
+                titleText: context.locale.facebook_features_block_reels,
+                switchValue:
+                    blockedFeatures.contains(PlatformFeatures.facebookReels),
+                onPressed: () => _toggleFeature(
+                  context,
+                  ref,
+                  blockedFeatures,
+                  PlatformFeatures.facebookReels,
+                ),
+              ),
+
+              /// Home feed
+              DefaultListTile(
+                position: ItemPosition.mid,
+                titleText: context.locale.facebook_features_block_home_feed,
+                switchValue:
+                    blockedFeatures.contains(PlatformFeatures.facebookHomeFeed),
+                onPressed: () => _toggleFeature(
+                  context,
+                  ref,
+                  blockedFeatures,
+                  PlatformFeatures.facebookHomeFeed,
+                ),
+              ),
+            ],
           ),
         ),
 

@@ -12,10 +12,14 @@
 package com.mindful.android.services.accessibility
 
 import android.accessibilityservice.AccessibilityService
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.content.pm.PackageManager
+import android.content.res.Configuration
 import android.net.Uri
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
@@ -37,6 +41,7 @@ import com.mindful.android.helpers.storage.SharedPrefsHelper
 import com.mindful.android.models.Wellbeing
 import com.mindful.android.receivers.DeviceAppsChangedReceiver
 import com.mindful.android.utils.ThreadUtils
+import com.mindful.android.utils.Utils
 import com.mindful.android.utils.executors.Throttler
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -72,18 +77,24 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
     private val throttler: Throttler = Throttler(500L)
     private val deviceAppsChangedReceiver: DeviceAppsChangedReceiver =
         DeviceAppsChangedReceiver(onAppsChanged = { refreshServiceConfig() })
+    private val screenOffReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) = feedOverlayManager.hide()
+    }
 
     // Managers
     private lateinit var shortsPlatformManager: ShortsPlatformManager
     private lateinit var browserManager: BrowserManager
     private lateinit var deviceFeaturesManager: DeviceFeaturesManager
     private lateinit var trackingManager: TrackingManager
+    private lateinit var feedOverlayManager: FeedOverlayManager
 
+    @Volatile
     private var wellbeing = Wellbeing()
 
     override fun onCreate() {
         super.onCreate()
         trackingManager = TrackingManager(context = this)
+        feedOverlayManager = FeedOverlayManager(this)
         deviceFeaturesManager = DeviceFeaturesManager(
             context = this,
             blockedContentGoBack = this::goBackWithToast
@@ -104,6 +115,7 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
 
         // Register listener for install and uninstall events
         deviceAppsChangedReceiver.register(this)
+        Utils.safelyRegisterReceiver(this, screenOffReceiver, IntentFilter(Intent.ACTION_SCREEN_OFF))
     }
 
 
@@ -148,6 +160,15 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
                 node?.let {
                     // Broadcast event
                     trackingManager.onNewEvent("${it.packageName}")
+
+                    // Feed overlay: always runs so it can be removed when no longer needed
+                    try {
+                        rootInActiveWindow?.let { root ->
+                            feedOverlayManager.onEvent(root) { wellbeing.copy() }
+                        } ?: feedOverlayManager.hide()
+                    } catch (e: Exception) {
+                        Log.e(TAG, "onAccessibilityEvent: Feed overlay failed", e)
+                    }
 
                     // Only process if any of the content is blocked
                     if (shouldBlockContent()) {
@@ -258,6 +279,7 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
                     /// Instagram
                     PlatformFeatures.INSTAGRAM_REELS,
                     PlatformFeatures.INSTAGRAM_EXPLORE,
+                    PlatformFeatures.INSTAGRAM_HOME_FEED,
                         -> shortsPlatformPackages.add(INSTAGRAM_PACKAGE)
 
                     // Snapchat
@@ -266,8 +288,9 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
                         -> shortsPlatformPackages.add(SNAPCHAT_PACKAGE)
 
                     // Facebook
-                    PlatformFeatures.FACEBOOK_REELS ->
-                        shortsPlatformPackages.add(FACEBOOK_PACKAGE)
+                    PlatformFeatures.FACEBOOK_REELS,
+                    PlatformFeatures.FACEBOOK_HOME_FEED,
+                        -> shortsPlatformPackages.add(FACEBOOK_PACKAGE)
 
                     // Reddit
                     PlatformFeatures.REDDIT_SHORTS ->
@@ -313,9 +336,16 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
             if (key == SharedPrefsHelper.PREF_KEY_WELLBEING_SETTINGS) {
                 Log.d(TAG, "OnSharedPrefsChanged: Key changed = $changedKey")
                 wellbeing = SharedPrefsHelper.getSetWellBeingSettings(this, null)
+                feedOverlayManager.hide()
                 refreshServiceConfig()
             }
         }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        // Next event recreates the overlay with the right theme and bounds
+        feedOverlayManager.hide()
     }
 
     override fun onInterrupt() {
@@ -324,9 +354,11 @@ class MindfulAccessibilityService : AccessibilityService(), OnSharedPreferenceCh
     override fun onDestroy() {
         try {
             executorService.shutdownNow()
+            feedOverlayManager.destroy()
             trackingManager.startManualTracking()
 
             // Unregister prefs listener and receiver
+            runCatching { unregisterReceiver(screenOffReceiver) }
             deviceAppsChangedReceiver.unRegister(this)
             SharedPrefsHelper.registerUnregisterListenerToListenablePrefs(this, false, this)
         } catch (e: Exception) {

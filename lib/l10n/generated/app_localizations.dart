@@ -1464,6 +1464,12 @@ abstract class AppLocalizations {
   /// **'Restrict explore section.'**
   String get instagram_features_block_explore;
 
+  /// No description provided for @instagram_features_block_home_feed.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide home feed, keep Following feed.'**
+  String get instagram_features_block_home_feed;
+
   /// No description provided for @snapchat_features_tile_title.
   ///
   /// In en, this message translates to:
@@ -1509,8 +1515,20 @@ abstract class AppLocalizations {
   /// No description provided for @facebook_features_tile_subtitle.
   ///
   /// In en, this message translates to:
-  /// **'Restrict reels on facebook.'**
+  /// **'Restrict features on facebook.'**
   String get facebook_features_tile_subtitle;
+
+  /// No description provided for @facebook_features_block_reels.
+  ///
+  /// In en, this message translates to:
+  /// **'Restrict reels section.'**
+  String get facebook_features_block_reels;
+
+  /// No description provided for @facebook_features_block_home_feed.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide home feed, keep Friends feed.'**
+  String get facebook_features_block_home_feed;
 
   /// No description provided for @reddit_features_tile_title.
   ///

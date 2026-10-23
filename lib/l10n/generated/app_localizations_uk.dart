@@ -837,6 +837,10 @@ class AppLocalizationsUk extends AppLocalizations {
   String get instagram_features_block_explore => 'Обмежити секцію Цікаве.';
 
   @override
+  String get instagram_features_block_home_feed =>
+      'Hide home feed, keep Following feed.';
+
+  @override
   String get snapchat_features_tile_title => 'Snapchat';
 
   @override
@@ -859,6 +863,13 @@ class AppLocalizationsUk extends AppLocalizations {
 
   @override
   String get facebook_features_tile_subtitle => 'Обмежити Reels в Facebook.';
+
+  @override
+  String get facebook_features_block_reels => 'Restrict reels section.';
+
+  @override
+  String get facebook_features_block_home_feed =>
+      'Hide home feed, keep Friends feed.';
 
   @override
   String get reddit_features_tile_title => 'Reddit';

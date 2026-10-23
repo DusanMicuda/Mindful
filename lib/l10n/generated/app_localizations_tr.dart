@@ -831,6 +831,10 @@ class AppLocalizationsTr extends AppLocalizations {
   String get instagram_features_block_explore => 'Keşfet bölümünü kısıtlayın.';
 
   @override
+  String get instagram_features_block_home_feed =>
+      'Hide home feed, keep Following feed.';
+
+  @override
   String get snapchat_features_tile_title => 'Snapchat';
 
   @override
@@ -857,6 +861,13 @@ class AppLocalizationsTr extends AppLocalizations {
   @override
   String get facebook_features_tile_subtitle =>
       'Facebook\'ta reelsları kısıtla.';
+
+  @override
+  String get facebook_features_block_reels => 'Restrict reels section.';
+
+  @override
+  String get facebook_features_block_home_feed =>
+      'Hide home feed, keep Friends feed.';
 
   @override
   String get reddit_features_tile_title => 'Reddit';

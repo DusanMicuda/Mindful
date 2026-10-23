@@ -77,4 +77,6 @@
 
     <string name="notification_schedule_batch_title">Unread notifications</string>
     <string name="notification_schedule_batch_summery" comment="Number of notifications as placeholder" formatted="true">You have %d unread notifications while you were away. They’ll be marked as read after 24 hours.</string>
+    <string name="feed_hidden_instagram">Home feed hidden by Mindful. Tap the Instagram logo → Following to see accounts you follow.</string>
+    <string name="feed_hidden_facebook">Home feed hidden by Mindful. Open ☰ Menu → Feeds → Friends to see posts from friends.</string>
 </resources>
