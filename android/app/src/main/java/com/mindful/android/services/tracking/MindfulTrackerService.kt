@@ -8,6 +8,7 @@ import androidx.annotation.WorkerThread
 import com.mindful.android.AppConstants
 import com.mindful.android.R
 import com.mindful.android.generics.ServiceBinder
+import com.mindful.android.helpers.device.GrayscaleHelper
 import com.mindful.android.helpers.device.NotificationHelper
 import com.mindful.android.helpers.storage.SharedPrefsHelper
 
@@ -28,6 +29,7 @@ class MindfulTrackerService : Service() {
     val getLaunchTrackingManager get() = launchTrackingManager
 
     override fun onCreate() {
+        GrayscaleHelper.setGrayscale(this, false) // recover stale Mindful-applied state
         overlayManager = OverlayManager(this)
         reminderManager = ReminderManager(overlayManager, ::onNewAppLaunch)
         restrictionManager = RestrictionManager(this, ::stopIfNoUsage)
@@ -79,6 +81,9 @@ class MindfulTrackerService : Service() {
     @WorkerThread
     private fun onNewAppLaunch(packageName: String) {
         try {
+            // ponytail: UsageStats fallback polls ~750ms, so grayscale may lag foreground switches; reuse existing detector.
+            GrayscaleHelper.setGrayscale(this, restrictionManager.isGrayscaleEnabled(packageName))
+
             reminderManager.cancelReminders()
             overlayManager.dismissSheetOverlay()
 
@@ -120,6 +125,7 @@ class MindfulTrackerService : Service() {
     }
 
     override fun onDestroy() {
+        GrayscaleHelper.setGrayscale(this, false)
         Log.d(TAG, "onDestroy: TRACKER service destroyed successfully")
         super.onDestroy()
     }

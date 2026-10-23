@@ -1317,6 +1317,64 @@ class AppLocalizationsIt extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'Scala di grigi quando aperta';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'Mostra lo schermo in scala di grigi mentre questa app è aperta.';
+
+  @override
+  String get grayscale_permission_dialog_title =>
+      'Consenti l\'accesso alle impostazioni protette';
+
+  @override
+  String get grayscale_permission_usb_title => 'ADB USB da un computer';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'Abilita le Opzioni sviluppatore e il debug USB, collega il dispositivo a un computer ed esegui:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'Debug wireless da un computer (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'Abilita le Opzioni sviluppatore e il Debug wireless. Associa con `adb pair`, connettiti con `adb connect`, quindi esegui:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      'ADB sul dispositivo senza computer (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'Abilita le Opzioni sviluppatore e il Debug wireless, quindi associa un\'app shell ADB come LADB. Esegui questo comando nella sua shell:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Esegui questo comando nella shell `rish` di Shizuku. Mindful non si integra con Shizuku:';
+
+  @override
+  String get grayscale_permission_root_title => 'Dispositivi con root';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'Esegui questo comando in una shell root:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'Il permesso resta dopo i riavvii e gli aggiornamenti dell\'app. Va perso se Mindful viene disinstallata o i suoi dati vengono cancellati. Dopo la concessione, tocca di nuovo l\'interruttore; Mindful controlla il permesso a ogni tocco.';
+
+  @override
+  String get grayscale_permission_copy_command => 'Copia comando';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'Comando ADB copiato.';
+
+  @override
   String get launch_app_tile_title => 'Lancia app';
 
   @override

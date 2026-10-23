@@ -1315,6 +1315,64 @@ class AppLocalizationsSv extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'Gråskala när appen är öppen';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'Visa skärmen i gråskala medan den här appen är öppen.';
+
+  @override
+  String get grayscale_permission_dialog_title =>
+      'Tillåt åtkomst till säkra inställningar';
+
+  @override
+  String get grayscale_permission_usb_title => 'USB-ADB från en dator';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'Aktivera Utvecklaralternativ och USB-felsökning, anslut enheten till en dator och kör sedan:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'Trådlös felsökning från en dator (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'Aktivera Utvecklaralternativ och Trådlös felsökning. Para med `adb pair`, anslut med `adb connect` och kör sedan:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      'ADB på enheten utan dator (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'Aktivera Utvecklaralternativ och Trådlös felsökning och para sedan en ADB-shell-app som LADB. Kör det här kommandot i dess shell:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Kör det här kommandot i Shizukus `rish`-shell. Mindful integreras inte med Shizuku:';
+
+  @override
+  String get grayscale_permission_root_title => 'Rootade enheter';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'Kör det här kommandot i ett root-shell:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'Behörigheten finns kvar efter omstarter och appuppdateringar. Den går förlorad om Mindful avinstalleras eller dess data rensas. Tryck på reglaget igen efter att behörigheten beviljats; Mindful kontrollerar behörigheten vid varje tryck.';
+
+  @override
+  String get grayscale_permission_copy_command => 'Kopiera kommando';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'ADB-kommando kopierat.';
+
+  @override
   String get launch_app_tile_title => 'Launch app';
 
   @override

@@ -84,6 +84,16 @@ class $AppRestrictionTableTable extends AppRestrictionTable
               defaultValue: Constant(ReminderType.toast.name))
           .withConverter<ReminderType>(
               $AppRestrictionTableTable.$converterreminderType);
+  static const VerificationMeta _grayscaleEnabledMeta =
+      const VerificationMeta('grayscaleEnabled');
+  @override
+  late final GeneratedColumn<bool> grayscaleEnabled = GeneratedColumn<bool>(
+      'grayscale_enabled', aliasedName, false,
+      type: DriftSqlType.bool,
+      requiredDuringInsert: false,
+      defaultConstraints: GeneratedColumn.constraintIsAlways(
+          'CHECK ("grayscale_enabled" IN (0, 1))'),
+      defaultValue: const Constant(false));
   @override
   List<GeneratedColumn> get $columns => [
         appPackage,
@@ -94,7 +104,8 @@ class $AppRestrictionTableTable extends AppRestrictionTable
         periodDurationInMins,
         associatedGroupId,
         canAccessInternet,
-        reminderType
+        reminderType,
+        grayscaleEnabled
       ];
   @override
   String get aliasedName => _alias ?? actualTableName;
@@ -142,6 +153,12 @@ class $AppRestrictionTableTable extends AppRestrictionTable
           canAccessInternet.isAcceptableOrUnknown(
               data['can_access_internet']!, _canAccessInternetMeta));
     }
+    if (data.containsKey('grayscale_enabled')) {
+      context.handle(
+          _grayscaleEnabledMeta,
+          grayscaleEnabled.isAcceptableOrUnknown(
+              data['grayscale_enabled']!, _grayscaleEnabledMeta));
+    }
     return context;
   }
 
@@ -172,6 +189,8 @@ class $AppRestrictionTableTable extends AppRestrictionTable
       reminderType: $AppRestrictionTableTable.$converterreminderType.fromSql(
           attachedDatabase.typeMapping.read(
               DriftSqlType.string, data['${effectivePrefix}reminder_type'])!),
+      grayscaleEnabled: attachedDatabase.typeMapping.read(
+          DriftSqlType.bool, data['${effectivePrefix}grayscale_enabled'])!,
     );
   }
 
@@ -218,6 +237,9 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
 
   /// [ReminderType] Type of reminders to show when using timed app
   final ReminderType reminderType;
+
+  /// Flag denoting if grayscale should be applied while using this app
+  final bool grayscaleEnabled;
   const AppRestriction(
       {required this.appPackage,
       required this.timerSec,
@@ -227,7 +249,8 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
       required this.periodDurationInMins,
       this.associatedGroupId,
       required this.canAccessInternet,
-      required this.reminderType});
+      required this.reminderType,
+      required this.grayscaleEnabled});
   @override
   Map<String, Expression> toColumns(bool nullToAbsent) {
     final map = <String, Expression>{};
@@ -253,6 +276,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
       map['reminder_type'] = Variable<String>(
           $AppRestrictionTableTable.$converterreminderType.toSql(reminderType));
     }
+    map['grayscale_enabled'] = Variable<bool>(grayscaleEnabled);
     return map;
   }
 
@@ -269,6 +293,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
           : Value(associatedGroupId),
       canAccessInternet: Value(canAccessInternet),
       reminderType: Value(reminderType),
+      grayscaleEnabled: Value(grayscaleEnabled),
     );
   }
 
@@ -289,6 +314,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
       canAccessInternet: serializer.fromJson<bool>(json['canAccessInternet']),
       reminderType: $AppRestrictionTableTable.$converterreminderType
           .fromJson(serializer.fromJson<String>(json['reminderType'])),
+      grayscaleEnabled: serializer.fromJson<bool>(json['grayscaleEnabled']),
     );
   }
   @override
@@ -310,6 +336,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
       'reminderType': serializer.toJson<String>($AppRestrictionTableTable
           .$converterreminderType
           .toJson(reminderType)),
+      'grayscaleEnabled': serializer.toJson<bool>(grayscaleEnabled),
     };
   }
 
@@ -322,7 +349,8 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
           int? periodDurationInMins,
           Value<int?> associatedGroupId = const Value.absent(),
           bool? canAccessInternet,
-          ReminderType? reminderType}) =>
+          ReminderType? reminderType,
+          bool? grayscaleEnabled}) =>
       AppRestriction(
         appPackage: appPackage ?? this.appPackage,
         timerSec: timerSec ?? this.timerSec,
@@ -335,6 +363,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
             : this.associatedGroupId,
         canAccessInternet: canAccessInternet ?? this.canAccessInternet,
         reminderType: reminderType ?? this.reminderType,
+        grayscaleEnabled: grayscaleEnabled ?? this.grayscaleEnabled,
       );
   AppRestriction copyWithCompanion(AppRestrictionTableCompanion data) {
     return AppRestriction(
@@ -361,6 +390,9 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
       reminderType: data.reminderType.present
           ? data.reminderType.value
           : this.reminderType,
+      grayscaleEnabled: data.grayscaleEnabled.present
+          ? data.grayscaleEnabled.value
+          : this.grayscaleEnabled,
     );
   }
 
@@ -375,7 +407,8 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
           ..write('periodDurationInMins: $periodDurationInMins, ')
           ..write('associatedGroupId: $associatedGroupId, ')
           ..write('canAccessInternet: $canAccessInternet, ')
-          ..write('reminderType: $reminderType')
+          ..write('reminderType: $reminderType, ')
+          ..write('grayscaleEnabled: $grayscaleEnabled')
           ..write(')'))
         .toString();
   }
@@ -390,7 +423,8 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
       periodDurationInMins,
       associatedGroupId,
       canAccessInternet,
-      reminderType);
+      reminderType,
+      grayscaleEnabled);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -403,7 +437,8 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
           other.periodDurationInMins == this.periodDurationInMins &&
           other.associatedGroupId == this.associatedGroupId &&
           other.canAccessInternet == this.canAccessInternet &&
-          other.reminderType == this.reminderType);
+          other.reminderType == this.reminderType &&
+          other.grayscaleEnabled == this.grayscaleEnabled);
 }
 
 class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
@@ -416,6 +451,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
   final Value<int?> associatedGroupId;
   final Value<bool> canAccessInternet;
   final Value<ReminderType> reminderType;
+  final Value<bool> grayscaleEnabled;
   final Value<int> rowid;
   const AppRestrictionTableCompanion({
     this.appPackage = const Value.absent(),
@@ -427,6 +463,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
     this.associatedGroupId = const Value.absent(),
     this.canAccessInternet = const Value.absent(),
     this.reminderType = const Value.absent(),
+    this.grayscaleEnabled = const Value.absent(),
     this.rowid = const Value.absent(),
   });
   AppRestrictionTableCompanion.insert({
@@ -439,6 +476,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
     this.associatedGroupId = const Value.absent(),
     this.canAccessInternet = const Value.absent(),
     this.reminderType = const Value.absent(),
+    this.grayscaleEnabled = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : appPackage = Value(appPackage);
   static Insertable<AppRestriction> custom({
@@ -451,6 +489,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
     Expression<int>? associatedGroupId,
     Expression<bool>? canAccessInternet,
     Expression<String>? reminderType,
+    Expression<bool>? grayscaleEnabled,
     Expression<int>? rowid,
   }) {
     return RawValuesInsertable({
@@ -464,6 +503,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
       if (associatedGroupId != null) 'associated_group_id': associatedGroupId,
       if (canAccessInternet != null) 'can_access_internet': canAccessInternet,
       if (reminderType != null) 'reminder_type': reminderType,
+      if (grayscaleEnabled != null) 'grayscale_enabled': grayscaleEnabled,
       if (rowid != null) 'rowid': rowid,
     });
   }
@@ -478,6 +518,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
       Value<int?>? associatedGroupId,
       Value<bool>? canAccessInternet,
       Value<ReminderType>? reminderType,
+      Value<bool>? grayscaleEnabled,
       Value<int>? rowid}) {
     return AppRestrictionTableCompanion(
       appPackage: appPackage ?? this.appPackage,
@@ -489,6 +530,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
       associatedGroupId: associatedGroupId ?? this.associatedGroupId,
       canAccessInternet: canAccessInternet ?? this.canAccessInternet,
       reminderType: reminderType ?? this.reminderType,
+      grayscaleEnabled: grayscaleEnabled ?? this.grayscaleEnabled,
       rowid: rowid ?? this.rowid,
     );
   }
@@ -530,6 +572,9 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
           .$converterreminderType
           .toSql(reminderType.value));
     }
+    if (grayscaleEnabled.present) {
+      map['grayscale_enabled'] = Variable<bool>(grayscaleEnabled.value);
+    }
     if (rowid.present) {
       map['rowid'] = Variable<int>(rowid.value);
     }
@@ -548,6 +593,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
           ..write('associatedGroupId: $associatedGroupId, ')
           ..write('canAccessInternet: $canAccessInternet, ')
           ..write('reminderType: $reminderType, ')
+          ..write('grayscaleEnabled: $grayscaleEnabled, ')
           ..write('rowid: $rowid')
           ..write(')'))
         .toString();
@@ -6047,6 +6093,7 @@ typedef $$AppRestrictionTableTableCreateCompanionBuilder
   Value<int?> associatedGroupId,
   Value<bool> canAccessInternet,
   Value<ReminderType> reminderType,
+  Value<bool> grayscaleEnabled,
   Value<int> rowid,
 });
 typedef $$AppRestrictionTableTableUpdateCompanionBuilder
@@ -6060,6 +6107,7 @@ typedef $$AppRestrictionTableTableUpdateCompanionBuilder
   Value<int?> associatedGroupId,
   Value<bool> canAccessInternet,
   Value<ReminderType> reminderType,
+  Value<bool> grayscaleEnabled,
   Value<int> rowid,
 });
 
@@ -6107,6 +6155,10 @@ class $$AppRestrictionTableTableFilterComposer
       get reminderType => $composableBuilder(
           column: $table.reminderType,
           builder: (column) => ColumnWithTypeConverterFilters(column));
+
+  ColumnFilters<bool> get grayscaleEnabled => $composableBuilder(
+      column: $table.grayscaleEnabled,
+      builder: (column) => ColumnFilters(column));
 }
 
 class $$AppRestrictionTableTableOrderingComposer
@@ -6150,6 +6202,10 @@ class $$AppRestrictionTableTableOrderingComposer
   ColumnOrderings<String> get reminderType => $composableBuilder(
       column: $table.reminderType,
       builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<bool> get grayscaleEnabled => $composableBuilder(
+      column: $table.grayscaleEnabled,
+      builder: (column) => ColumnOrderings(column));
 }
 
 class $$AppRestrictionTableTableAnnotationComposer
@@ -6190,6 +6246,9 @@ class $$AppRestrictionTableTableAnnotationComposer
   GeneratedColumnWithTypeConverter<ReminderType, String> get reminderType =>
       $composableBuilder(
           column: $table.reminderType, builder: (column) => column);
+
+  GeneratedColumn<bool> get grayscaleEnabled => $composableBuilder(
+      column: $table.grayscaleEnabled, builder: (column) => column);
 }
 
 class $$AppRestrictionTableTableTableManager extends RootTableManager<
@@ -6230,6 +6289,7 @@ class $$AppRestrictionTableTableTableManager extends RootTableManager<
             Value<int?> associatedGroupId = const Value.absent(),
             Value<bool> canAccessInternet = const Value.absent(),
             Value<ReminderType> reminderType = const Value.absent(),
+            Value<bool> grayscaleEnabled = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               AppRestrictionTableCompanion(
@@ -6242,6 +6302,7 @@ class $$AppRestrictionTableTableTableManager extends RootTableManager<
             associatedGroupId: associatedGroupId,
             canAccessInternet: canAccessInternet,
             reminderType: reminderType,
+            grayscaleEnabled: grayscaleEnabled,
             rowid: rowid,
           ),
           createCompanionCallback: ({
@@ -6254,6 +6315,7 @@ class $$AppRestrictionTableTableTableManager extends RootTableManager<
             Value<int?> associatedGroupId = const Value.absent(),
             Value<bool> canAccessInternet = const Value.absent(),
             Value<ReminderType> reminderType = const Value.absent(),
+            Value<bool> grayscaleEnabled = const Value.absent(),
             Value<int> rowid = const Value.absent(),
           }) =>
               AppRestrictionTableCompanion.insert(
@@ -6266,6 +6328,7 @@ class $$AppRestrictionTableTableTableManager extends RootTableManager<
             associatedGroupId: associatedGroupId,
             canAccessInternet: canAccessInternet,
             reminderType: reminderType,
+            grayscaleEnabled: grayscaleEnabled,
             rowid: rowid,
           ),
           withReferenceMapper: (p0) => p0

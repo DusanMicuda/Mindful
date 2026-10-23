@@ -2310,6 +2310,102 @@ abstract class AppLocalizations {
   /// **'{appName}\'s internet is unblocked.'**
   String internet_access_unblocked_snack_alert(String appName);
 
+  /// No description provided for @grayscale_tile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Grayscale while open'**
+  String get grayscale_tile_title;
+
+  /// No description provided for @grayscale_tile_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn the screen grayscale while this app is open.'**
+  String get grayscale_tile_subtitle;
+
+  /// No description provided for @grayscale_permission_dialog_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow secure settings access'**
+  String get grayscale_permission_dialog_title;
+
+  /// No description provided for @grayscale_permission_usb_title.
+  ///
+  /// In en, this message translates to:
+  /// **'USB ADB from a computer'**
+  String get grayscale_permission_usb_title;
+
+  /// No description provided for @grayscale_permission_usb_steps.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Developer options and USB debugging, connect your device to a computer, then run:'**
+  String get grayscale_permission_usb_steps;
+
+  /// No description provided for @grayscale_permission_wireless_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Wireless debugging from a computer (Android 11+)'**
+  String get grayscale_permission_wireless_title;
+
+  /// No description provided for @grayscale_permission_wireless_steps.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Developer options and Wireless debugging. Pair with `adb pair`, connect with `adb connect`, then run:'**
+  String get grayscale_permission_wireless_steps;
+
+  /// No description provided for @grayscale_permission_ladb_title.
+  ///
+  /// In en, this message translates to:
+  /// **'On-device ADB without a computer (Android 11+)'**
+  String get grayscale_permission_ladb_title;
+
+  /// No description provided for @grayscale_permission_ladb_steps.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Developer options and Wireless debugging, then pair an ADB shell app such as LADB. Run this command in its shell:'**
+  String get grayscale_permission_ladb_steps;
+
+  /// No description provided for @grayscale_permission_shizuku_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Shizuku'**
+  String get grayscale_permission_shizuku_title;
+
+  /// No description provided for @grayscale_permission_shizuku_steps.
+  ///
+  /// In en, this message translates to:
+  /// **'Run this command in Shizuku\'s `rish` shell. Mindful does not integrate with Shizuku:'**
+  String get grayscale_permission_shizuku_steps;
+
+  /// No description provided for @grayscale_permission_root_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Rooted devices'**
+  String get grayscale_permission_root_title;
+
+  /// No description provided for @grayscale_permission_root_steps.
+  ///
+  /// In en, this message translates to:
+  /// **'Run this command in a root shell:'**
+  String get grayscale_permission_root_steps;
+
+  /// No description provided for @grayscale_permission_persistence.
+  ///
+  /// In en, this message translates to:
+  /// **'The grant survives reboots and app updates. It is lost if Mindful is uninstalled or its data is cleared. After granting, tap the toggle again; Mindful checks permission on each tap.'**
+  String get grayscale_permission_persistence;
+
+  /// No description provided for @grayscale_permission_copy_command.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy command'**
+  String get grayscale_permission_copy_command;
+
+  /// No description provided for @grayscale_command_copied_snack_alert.
+  ///
+  /// In en, this message translates to:
+  /// **'ADB command copied.'**
+  String get grayscale_command_copied_snack_alert;
+
   /// No description provided for @launch_app_tile_title.
   ///
   /// In en, this message translates to:

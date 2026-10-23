@@ -1325,6 +1325,64 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'Niveaux de gris à l\'ouverture';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'Affiche l\'écran en niveaux de gris tant que cette application est ouverte.';
+
+  @override
+  String get grayscale_permission_dialog_title =>
+      'Autoriser l\'accès aux paramètres sécurisés';
+
+  @override
+  String get grayscale_permission_usb_title => 'ADB USB depuis un ordinateur';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'Activez les options pour les développeurs et le débogage USB, connectez votre appareil à un ordinateur, puis exécutez :';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'Débogage sans fil depuis un ordinateur (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'Activez les options pour les développeurs et le débogage sans fil. Associez avec `adb pair`, connectez avec `adb connect`, puis exécutez :';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      'ADB sur l\'appareil sans ordinateur (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'Activez les options pour les développeurs et le débogage sans fil, puis associez une application de shell ADB comme LADB. Exécutez cette commande dans son shell :';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Exécutez cette commande dans le shell `rish` de Shizuku. Mindful ne s\'intègre pas à Shizuku :';
+
+  @override
+  String get grayscale_permission_root_title => 'Appareils rootés';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'Exécutez cette commande dans un shell root :';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'L\'autorisation persiste après les redémarrages et les mises à jour de l\'application. Elle est perdue si Mindful est désinstallé ou si ses données sont effacées. Après l\'avoir accordée, appuyez à nouveau sur l\'interrupteur ; Mindful vérifie l\'autorisation à chaque appui.';
+
+  @override
+  String get grayscale_permission_copy_command => 'Copier la commande';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'Commande ADB copiée.';
+
+  @override
   String get launch_app_tile_title => 'Launch app';
 
   @override

@@ -1315,6 +1315,64 @@ class AppLocalizationsAf extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'Grysskaal terwyl oop';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'Maak die skerm grysskaal terwyl hierdie toepassing oop is.';
+
+  @override
+  String get grayscale_permission_dialog_title =>
+      'Laat toegang tot veilige instellings toe';
+
+  @override
+  String get grayscale_permission_usb_title => 'USB-ADB vanaf \'n rekenaar';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'Aktiveer Ontwikkelaaropsies en USB-ontfouting, koppel jou toestel aan \'n rekenaar en voer dan uit:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'Draadlose ontfouting vanaf \'n rekenaar (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'Aktiveer Ontwikkelaaropsies en Draadlose ontfouting. Koppel met `adb pair`, verbind met `adb connect`, en voer dan uit:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      'ADB op die toestel sonder \'n rekenaar (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'Aktiveer Ontwikkelaaropsies en Draadlose ontfouting, en koppel dan \'n ADB-dopapp soos LADB. Voer hierdie opdrag in sy dop uit:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Voer hierdie opdrag in Shizuku se `rish`-dop uit. Mindful integreer nie met Shizuku nie:';
+
+  @override
+  String get grayscale_permission_root_title => 'Gewortelde toestelle';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'Voer hierdie opdrag in \'n root-dop uit:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'Die toestemming bly na herbegin en toepassingopdaterings. Dit gaan verlore as Mindful gedeïnstalleer word of sy data uitgevee word. Tik na toestemming weer op die skakelaar; Mindful kontroleer die toestemming met elke tik.';
+
+  @override
+  String get grayscale_permission_copy_command => 'Kopieer opdrag';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'ADB-opdrag gekopieer.';
+
+  @override
   String get launch_app_tile_title => 'Launch app';
 
   @override

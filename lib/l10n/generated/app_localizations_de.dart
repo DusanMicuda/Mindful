@@ -1316,6 +1316,64 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'Graustufen bei geöffneter App';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'Bildschirm in Graustufen anzeigen, solange diese App geöffnet ist.';
+
+  @override
+  String get grayscale_permission_dialog_title =>
+      'Zugriff auf sichere Einstellungen erlauben';
+
+  @override
+  String get grayscale_permission_usb_title => 'USB-ADB von einem Computer';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'Aktiviere die Entwickleroptionen und USB-Debugging, verbinde dein Gerät mit einem Computer und führe dann aus:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'Kabelloses Debugging von einem Computer (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'Aktiviere die Entwickleroptionen und kabelloses Debugging. Koppeln mit `adb pair`, verbinden mit `adb connect`, dann ausführen:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      'ADB auf dem Gerät ohne Computer (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'Aktiviere die Entwickleroptionen und kabelloses Debugging und koppele dann eine ADB-Shell-App wie LADB. Führe diesen Befehl in deren Shell aus:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Führe diesen Befehl in der `rish`-Shell von Shizuku aus. Mindful integriert Shizuku nicht:';
+
+  @override
+  String get grayscale_permission_root_title => 'Geräte mit Root';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'Führe diesen Befehl in einer Root-Shell aus:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'Die Berechtigung bleibt nach Neustarts und App-Updates erhalten. Sie geht verloren, wenn Mindful deinstalliert oder die Daten gelöscht werden. Tippe nach der Erteilung erneut auf den Schalter; Mindful prüft die Berechtigung bei jedem Tippen.';
+
+  @override
+  String get grayscale_permission_copy_command => 'Befehl kopieren';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'ADB-Befehl kopiert.';
+
+  @override
   String get launch_app_tile_title => 'Launch app';
 
   @override

@@ -95,6 +95,7 @@ const defaultAppRestrictionModel = AppRestriction(
   periodDurationInMins: 0,
   canAccessInternet: true,
   reminderType: ReminderType.toast,
+  grayscaleEnabled: false,
 );
 
 final defaultFocusModeModel = FocusMode(

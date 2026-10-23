@@ -1326,6 +1326,64 @@ class AppLocalizationsSr extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'Нијансе сиве док је отворена';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'Прикажи екран у нијансама сиве док је ова апликација отворена.';
+
+  @override
+  String get grayscale_permission_dialog_title =>
+      'Дозволи приступ безбедним подешавањима';
+
+  @override
+  String get grayscale_permission_usb_title => 'USB ADB са рачунара';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'Омогућите опције за програмере и USB дебаговање, повежите уређај са рачунаром, а затим покрените:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'Бежично дебаговање са рачунара (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'Омогућите опције за програмере и бежично дебаговање. Упарите помоћу `adb pair`, повежите помоћу `adb connect`, а затим покрените:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      'ADB на уређају без рачунара (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'Омогућите опције за програмере и бежично дебаговање, а затим упарите ADB shell апликацију као што је LADB. Покрените ову команду у њеном shell-у:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Покрените ову команду у `rish` shell-у апликације Shizuku. Mindful се не интегрише са Shizuku:';
+
+  @override
+  String get grayscale_permission_root_title => 'Уређаји са root приступом';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'Покрените ову команду у root shell-у:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'Дозвола остаје након поновног покретања и ажурирања апликације. Губи се ако се Mindful деинсталира или се обришу његови подаци. Након додељивања поново додирните прекидач; Mindful проверава дозволу при сваком додиру.';
+
+  @override
+  String get grayscale_permission_copy_command => 'Копирај команду';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'ADB команда је копирана.';
+
+  @override
   String get launch_app_tile_title => 'Покрени апликацију';
 
   @override

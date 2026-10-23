@@ -375,6 +375,11 @@ class MethodChannelService {
         askPermissionToo,
       );
 
+  /// Checks if the WRITE_SECURE_SETTINGS permission is granted.
+  Future<bool> hasWriteSecureSettingsPermission() async =>
+      await _methodChannel.invokeMethod('hasWriteSecureSettingsPermission') ??
+      false;
+
   /// Disable device Admin if active.
   Future<bool> disableDeviceAdmin() async =>
       await _methodChannel.invokeMethod('disableDeviceAdmin');

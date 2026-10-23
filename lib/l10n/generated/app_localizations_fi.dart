@@ -1315,6 +1315,64 @@ class AppLocalizationsFi extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'Harmaasävyt sovelluksen ollessa auki';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'Näytä näyttö harmaasävyinä, kun tämä sovellus on auki.';
+
+  @override
+  String get grayscale_permission_dialog_title =>
+      'Salli pääsy suojattuihin asetuksiin';
+
+  @override
+  String get grayscale_permission_usb_title => 'USB-ADB tietokoneelta';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'Ota käyttöön kehittäjäasetukset ja USB-vianetsintä, yhdistä laite tietokoneeseen ja suorita:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'Langaton vianetsintä tietokoneelta (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'Ota käyttöön kehittäjäasetukset ja langaton vianetsintä. Yhdistä pariksi komennolla `adb pair`, muodosta yhteys komennolla `adb connect` ja suorita:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      'ADB laitteella ilman tietokonetta (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'Ota käyttöön kehittäjäasetukset ja langaton vianetsintä ja yhdistä pariksi ADB-komentotulkkisovellus, kuten LADB. Suorita tämä komento sen komentotulkissa:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Suorita tämä komento Shizukun `rish`-komentotulkissa. Mindful ei integroidu Shizukuun:';
+
+  @override
+  String get grayscale_permission_root_title => 'Roottatut laitteet';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'Suorita tämä komento root-komentotulkissa:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'Oikeus säilyy uudelleenkäynnistysten ja sovelluspäivitysten yli. Se menetetään, jos Mindful poistetaan tai sen tiedot tyhjennetään. Napauta myöntämisen jälkeen kytkintä uudelleen; Mindful tarkistaa oikeuden jokaisella napautuksella.';
+
+  @override
+  String get grayscale_permission_copy_command => 'Kopioi komento';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'ADB-komento kopioitu.';
+
+  @override
   String get launch_app_tile_title => 'Launch app';
 
   @override

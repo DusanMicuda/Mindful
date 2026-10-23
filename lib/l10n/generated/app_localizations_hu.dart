@@ -1315,6 +1315,64 @@ class AppLocalizationsHu extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'Szürkeárnyalat megnyitáskor';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'A képernyő szürkeárnyalatos, amíg ez az alkalmazás nyitva van.';
+
+  @override
+  String get grayscale_permission_dialog_title =>
+      'Hozzáférés engedélyezése a biztonságos beállításokhoz';
+
+  @override
+  String get grayscale_permission_usb_title => 'USB ADB számítógépről';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'Kapcsold be a fejlesztői beállításokat és az USB-hibakeresést, csatlakoztasd az eszközt egy számítógéphez, majd futtasd:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'Vezeték nélküli hibakeresés számítógépről (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'Kapcsold be a fejlesztői beállításokat és a vezeték nélküli hibakeresést. Párosíts az `adb pair` paranccsal, csatlakozz az `adb connect` paranccsal, majd futtasd:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      'ADB az eszközön számítógép nélkül (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'Kapcsold be a fejlesztői beállításokat és a vezeték nélküli hibakeresést, majd párosíts egy ADB shell alkalmazást, például a LADB-t. Futtasd ezt a parancsot a shelljében:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Futtasd ezt a parancsot a Shizuku `rish` shelljében. A Mindful nem integrálódik a Shizukuval:';
+
+  @override
+  String get grayscale_permission_root_title => 'Rootolt eszközök';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'Futtasd ezt a parancsot egy root shellben:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'Az engedély megmarad újraindítás és alkalmazásfrissítés után. Elvész, ha a Mindful eltávolításra kerül, vagy az adatai törlődnek. Az engedélyezés után koppints újra a kapcsolóra; a Mindful minden koppintáskor ellenőrzi az engedélyt.';
+
+  @override
+  String get grayscale_permission_copy_command => 'Parancs másolása';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'ADB-parancs átmásolva.';
+
+  @override
   String get launch_app_tile_title => 'Launch app';
 
   @override

@@ -1226,6 +1226,58 @@ class AppLocalizationsZh extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => '打开时使用灰度';
+
+  @override
+  String get grayscale_tile_subtitle => '此应用打开期间，将屏幕显示为灰度。';
+
+  @override
+  String get grayscale_permission_dialog_title => '允许访问安全设置';
+
+  @override
+  String get grayscale_permission_usb_title => '通过电脑使用 USB ADB';
+
+  @override
+  String get grayscale_permission_usb_steps => '启用开发者选项和 USB 调试，将设备连接到电脑，然后运行：';
+
+  @override
+  String get grayscale_permission_wireless_title => '通过电脑使用无线调试 (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      '启用开发者选项和无线调试。使用 `adb pair` 配对，使用 `adb connect` 连接，然后运行：';
+
+  @override
+  String get grayscale_permission_ladb_title => '无需电脑，在设备上使用 ADB (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      '启用开发者选项和无线调试，然后与 LADB 等 ADB shell 应用配对。在其 shell 中运行此命令：';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      '在 Shizuku 的 `rish` shell 中运行此命令。Mindful 未与 Shizuku 集成：';
+
+  @override
+  String get grayscale_permission_root_title => '已 Root 的设备';
+
+  @override
+  String get grayscale_permission_root_steps => '在 root shell 中运行此命令：';
+
+  @override
+  String get grayscale_permission_persistence =>
+      '授权在重启和应用更新后仍然有效。卸载 Mindful 或清除其数据后会失效。授权后，请再次点按开关；Mindful 每次点按都会检查权限。';
+
+  @override
+  String get grayscale_permission_copy_command => '复制命令';
+
+  @override
+  String get grayscale_command_copied_snack_alert => '已复制 ADB 命令。';
+
+  @override
   String get launch_app_tile_title => '启动应用';
 
   @override

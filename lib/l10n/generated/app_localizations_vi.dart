@@ -1315,6 +1315,64 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'Thang độ xám khi đang mở';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'Chuyển màn hình sang thang độ xám khi ứng dụng này đang mở.';
+
+  @override
+  String get grayscale_permission_dialog_title =>
+      'Cho phép truy cập cài đặt bảo mật';
+
+  @override
+  String get grayscale_permission_usb_title => 'ADB qua USB từ máy tính';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'Bật Tùy chọn nhà phát triển và gỡ lỗi USB, kết nối thiết bị với máy tính rồi chạy:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'Gỡ lỗi không dây từ máy tính (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'Bật Tùy chọn nhà phát triển và Gỡ lỗi không dây. Ghép nối bằng `adb pair`, kết nối bằng `adb connect` rồi chạy:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      'ADB trên thiết bị, không cần máy tính (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'Bật Tùy chọn nhà phát triển và Gỡ lỗi không dây, sau đó ghép nối một ứng dụng shell ADB như LADB. Chạy lệnh này trong shell của ứng dụng đó:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Chạy lệnh này trong shell `rish` của Shizuku. Mindful không tích hợp với Shizuku:';
+
+  @override
+  String get grayscale_permission_root_title => 'Thiết bị đã root';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'Chạy lệnh này trong shell root:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'Quyền được giữ sau khi khởi động lại và cập nhật ứng dụng. Quyền sẽ mất nếu gỡ cài đặt Mindful hoặc xóa dữ liệu của ứng dụng. Sau khi cấp quyền, hãy chạm vào công tắc lần nữa; Mindful kiểm tra quyền mỗi lần chạm.';
+
+  @override
+  String get grayscale_permission_copy_command => 'Sao chép lệnh';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'Đã sao chép lệnh ADB.';
+
+  @override
   String get launch_app_tile_title => 'Launch app';
 
   @override

@@ -33,6 +33,8 @@ object SharedPrefsHelper {
     private const val PREF_KEY_SHORTS_SCREEN_TIME = "shortsScreenTime"
     private const val PREF_KEY_DND_WAKE_LOCK = "dndWakeLock"
     private const val PREF_KEY_EXCLUDED_APPS = "excludedApps"
+    private const val PREF_KEY_APPLIED_GRAYSCALE = "mindfulAppliedGrayscale"
+    private const val PREF_KEY_SAVED_DALTONIZER_MODE = "mindfulSavedDaltonizerMode"
 
     private var mListenablePrefs: SharedPreferences? = null
     private const val LISTENABLE_PREFS_BOX = "UniquePrefs"
@@ -187,6 +189,38 @@ object SharedPrefsHelper {
 
         // fetch it
         return mUniquePrefs!!.getLong(PREF_KEY_SHORTS_SCREEN_TIME, 0L)
+    }
+
+    /**
+     * Whether Mindful itself turned on system grayscale.
+     */
+    fun getIsGrayscaleAppliedByMindful(context: Context): Boolean {
+        checkAndInitializeUniquePrefs(context)
+        return mUniquePrefs!!.getBoolean(PREF_KEY_APPLIED_GRAYSCALE, false)
+    }
+
+    /**
+     * Stores whether Mindful itself turned on system grayscale.
+     */
+    fun setIsGrayscaleAppliedByMindful(context: Context, applied: Boolean) {
+        checkAndInitializeUniquePrefs(context)
+        mUniquePrefs!!.edit().putBoolean(PREF_KEY_APPLIED_GRAYSCALE, applied).commit()
+    }
+
+    /**
+     * Daltonizer mode saved before Mindful enabled grayscale, or -1 if none.
+     */
+    fun getMindfulSavedDaltonizerMode(context: Context): Int {
+        checkAndInitializeUniquePrefs(context)
+        return mUniquePrefs!!.getInt(PREF_KEY_SAVED_DALTONIZER_MODE, -1)
+    }
+
+    /**
+     * Stores the daltonizer mode to restore when Mindful disables grayscale.
+     */
+    fun setMindfulSavedDaltonizerMode(context: Context, mode: Int) {
+        checkAndInitializeUniquePrefs(context)
+        mUniquePrefs!!.edit().putInt(PREF_KEY_SAVED_DALTONIZER_MODE, mode).apply()
     }
 
 

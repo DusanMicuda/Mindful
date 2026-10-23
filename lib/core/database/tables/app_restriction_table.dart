@@ -54,4 +54,8 @@ class AppRestrictionTable extends Table {
   /// [ReminderType] Type of reminders to show when using timed app
   TextColumn get reminderType =>
       textEnum<ReminderType>().withDefault(Constant(ReminderType.toast.name))();
+
+  /// Flag denoting if grayscale should be applied while using this app
+  BoolColumn get grayscaleEnabled =>
+      boolean().withDefault(const Constant(false))();
 }

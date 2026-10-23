@@ -40,6 +40,7 @@ class AppsRestrictionsNotifier
   void _init() async {
     _dao = DriftDbService.instance.driftDb.dynamicRecordsDao;
     final items = await _dao.fetchAppsRestrictions();
+    if (!mounted) return;
     state = Map.fromEntries(items.map((e) => MapEntry(e.appPackage, e)));
 
     /// Update services
@@ -131,6 +132,18 @@ class AppsRestrictionsNotifier
     _updateStateDbAndServices(appPackage, restriction, updateVpn: true);
   }
 
+  /// Toggles grayscale-while-open for a specific app package.
+  void switchGrayscale(String appPackage, bool grayscaleEnabled) async {
+    final restriction =
+        state[appPackage]?.copyWith(grayscaleEnabled: grayscaleEnabled) ??
+            defaultAppRestrictionModel.copyWith(
+              appPackage: appPackage,
+              grayscaleEnabled: grayscaleEnabled,
+            );
+
+    _updateStateDbAndServices(appPackage, restriction);
+  }
+
   /// Updates the id of associated [RestrictionGroup] for a specific app package.
   Future<void> updateAssociatedGroupId({
     required List<String> appPackages,
@@ -218,7 +231,8 @@ class AppsRestrictionsNotifier
               (e.timerSec > 0 ||
                   e.launchLimit > 0 ||
                   e.periodDurationInMins > 0 ||
-                  e.associatedGroupId != null),
+                  e.associatedGroupId != null ||
+                  e.grayscaleEnabled),
         )
         .toList();
 

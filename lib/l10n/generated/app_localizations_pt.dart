@@ -1325,6 +1325,65 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'Tons de cinza enquanto aberto';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'Exibe a tela em tons de cinza enquanto este app estiver aberto.';
+
+  @override
+  String get grayscale_permission_dialog_title =>
+      'Permitir acesso às configurações seguras';
+
+  @override
+  String get grayscale_permission_usb_title =>
+      'ADB por USB a partir de um computador';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'Ative as Opções do desenvolvedor e a depuração USB, conecte o dispositivo a um computador e execute:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'Depuração sem fio a partir de um computador (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'Ative as Opções do desenvolvedor e a Depuração sem fio. Pareie com `adb pair`, conecte com `adb connect` e execute:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      'ADB no dispositivo sem computador (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'Ative as Opções do desenvolvedor e a Depuração sem fio e pareie um app de shell ADB, como o LADB. Execute este comando no shell dele:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Execute este comando no shell `rish` do Shizuku. O Mindful não se integra ao Shizuku:';
+
+  @override
+  String get grayscale_permission_root_title => 'Dispositivos com root';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'Execute este comando em um shell root:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'A permissão permanece após reinicializações e atualizações do app. Ela é perdida se o Mindful for desinstalado ou seus dados forem apagados. Depois de conceder, toque no botão novamente; o Mindful verifica a permissão a cada toque.';
+
+  @override
+  String get grayscale_permission_copy_command => 'Copiar comando';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'Comando ADB copiado.';
+
+  @override
   String get launch_app_tile_title => 'Iniciar aplicativo';
 
   @override

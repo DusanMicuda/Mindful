@@ -1315,6 +1315,64 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'Оттенки серого при открытии';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'Показывать экран в оттенках серого, пока это приложение открыто.';
+
+  @override
+  String get grayscale_permission_dialog_title =>
+      'Разрешить доступ к защищённым настройкам';
+
+  @override
+  String get grayscale_permission_usb_title => 'USB ADB с компьютера';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'Включите режим разработчика и отладку по USB, подключите устройство к компьютеру и выполните:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'Отладка по Wi-Fi с компьютера (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'Включите режим разработчика и отладку по Wi-Fi. Выполните сопряжение командой `adb pair`, подключитесь командой `adb connect`, затем выполните:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      'ADB на устройстве без компьютера (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'Включите режим разработчика и отладку по Wi-Fi, затем выполните сопряжение с приложением ADB shell, например LADB. Выполните эту команду в его оболочке:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Выполните эту команду в оболочке `rish` приложения Shizuku. Mindful не интегрируется с Shizuku:';
+
+  @override
+  String get grayscale_permission_root_title => 'Устройства с root';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'Выполните эту команду в root-оболочке:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'Разрешение сохраняется после перезагрузок и обновлений приложения. Оно теряется при удалении Mindful или очистке его данных. После выдачи разрешения снова нажмите переключатель; Mindful проверяет разрешение при каждом нажатии.';
+
+  @override
+  String get grayscale_permission_copy_command => 'Копировать команду';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'Команда ADB скопирована.';
+
+  @override
   String get launch_app_tile_title => 'Launch app';
 
   @override

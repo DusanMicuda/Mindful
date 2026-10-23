@@ -1324,6 +1324,64 @@ class AppLocalizationsTr extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'Açıkken gri tonlama';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'Bu uygulama açıkken ekranı gri tonlamalı yap.';
+
+  @override
+  String get grayscale_permission_dialog_title =>
+      'Güvenli ayarlara erişime izin ver';
+
+  @override
+  String get grayscale_permission_usb_title => 'Bilgisayardan USB ADB';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'Geliştirici seçeneklerini ve USB hata ayıklamayı etkinleştirin, cihazınızı bir bilgisayara bağlayın, ardından şunu çalıştırın:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'Bilgisayardan kablosuz hata ayıklama (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'Geliştirici seçeneklerini ve Kablosuz hata ayıklamayı etkinleştirin. `adb pair` ile eşleştirin, `adb connect` ile bağlanın, ardından şunu çalıştırın:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      'Bilgisayarsız cihaz üzerinde ADB (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'Geliştirici seçeneklerini ve Kablosuz hata ayıklamayı etkinleştirin, ardından LADB gibi bir ADB kabuk uygulamasını eşleştirin. Bu komutu kabuğunda çalıştırın:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Bu komutu Shizuku\'nun `rish` kabuğunda çalıştırın. Mindful, Shizuku ile entegre değildir:';
+
+  @override
+  String get grayscale_permission_root_title => 'Root\'lu cihazlar';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'Bu komutu bir root kabuğunda çalıştırın:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'İzin, yeniden başlatmalardan ve uygulama güncellemelerinden sonra da kalır. Mindful kaldırılırsa veya verileri temizlenirse kaybolur. İzni verdikten sonra anahtara tekrar dokunun; Mindful her dokunuşta izni kontrol eder.';
+
+  @override
+  String get grayscale_permission_copy_command => 'Komutu kopyala';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'ADB komutu kopyalandı.';
+
+  @override
   String get launch_app_tile_title => 'Uygulamayı başlat';
 
   @override

@@ -1312,6 +1312,64 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'تدرج الرمادي أثناء الفتح';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'اجعل الشاشة بتدرج الرمادي أثناء فتح هذا التطبيق.';
+
+  @override
+  String get grayscale_permission_dialog_title =>
+      'السماح بالوصول إلى الإعدادات الآمنة';
+
+  @override
+  String get grayscale_permission_usb_title => 'ADB عبر USB من جهاز كمبيوتر';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'فعّل خيارات المطور وتصحيح أخطاء USB، وصِل جهازك بجهاز كمبيوتر، ثم نفّذ:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'التصحيح اللاسلكي من جهاز كمبيوتر (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'فعّل خيارات المطور والتصحيح اللاسلكي. اقترن باستخدام `adb pair`، واتصل باستخدام `adb connect`، ثم نفّذ:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      'ADB على الجهاز بدون كمبيوتر (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'فعّل خيارات المطور والتصحيح اللاسلكي، ثم اقرن تطبيق ADB shell مثل LADB. نفّذ هذا الأمر في الـ shell الخاص به:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'نفّذ هذا الأمر في shell الخاص بـ `rish` في Shizuku. لا يتكامل Mindful مع Shizuku:';
+
+  @override
+  String get grayscale_permission_root_title => 'الأجهزة ذات صلاحيات الروت';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'نفّذ هذا الأمر في shell بصلاحيات الروت:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'يبقى الإذن بعد إعادة التشغيل وتحديثات التطبيق. ويُفقد إذا أُزيل تثبيت Mindful أو مُسحت بياناته. بعد منح الإذن، اضغط على المفتاح مرة أخرى؛ يتحقق Mindful من الإذن عند كل ضغطة.';
+
+  @override
+  String get grayscale_permission_copy_command => 'نسخ الأمر';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'تم نسخ أمر ADB.';
+
+  @override
   String get launch_app_tile_title => 'فتح التطبيق';
 
   @override

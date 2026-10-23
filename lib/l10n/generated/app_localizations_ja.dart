@@ -1272,6 +1272,60 @@ class AppLocalizationsJa extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => '起動中はグレースケール';
+
+  @override
+  String get grayscale_tile_subtitle => 'このアプリの起動中は画面をグレースケールにします。';
+
+  @override
+  String get grayscale_permission_dialog_title => 'セキュア設定へのアクセスを許可';
+
+  @override
+  String get grayscale_permission_usb_title => 'パソコンからの USB ADB';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      '開発者向けオプションと USB デバッグを有効にし、端末をパソコンに接続して、次を実行します:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'パソコンからのワイヤレスデバッグ (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      '開発者向けオプションとワイヤレスデバッグを有効にします。`adb pair` でペア設定し、`adb connect` で接続して、次を実行します:';
+
+  @override
+  String get grayscale_permission_ladb_title => 'パソコンなしの端末内 ADB (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      '開発者向けオプションとワイヤレスデバッグを有効にし、LADB などの ADB シェルアプリとペア設定します。そのシェルで次のコマンドを実行します:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Shizuku の `rish` シェルで次のコマンドを実行します。Mindful は Shizuku と連携しません:';
+
+  @override
+  String get grayscale_permission_root_title => 'root 化された端末';
+
+  @override
+  String get grayscale_permission_root_steps => 'root シェルで次のコマンドを実行します:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'この許可は再起動やアプリの更新後も維持されます。Mindful をアンインストールするかデータを消去すると失われます。許可後、もう一度トグルをタップしてください。Mindful はタップのたびに許可を確認します。';
+
+  @override
+  String get grayscale_permission_copy_command => 'コマンドをコピー';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'ADB コマンドをコピーしました。';
+
+  @override
   String get launch_app_tile_title => 'アプリの起動';
 
   @override

@@ -14,6 +14,7 @@ import com.mindful.android.helpers.AlarmTasksSchedulingHelper.cancelNotification
 import com.mindful.android.helpers.AlarmTasksSchedulingHelper.scheduleBedtimeRoutineTasks
 import com.mindful.android.helpers.AlarmTasksSchedulingHelper.scheduleNotificationBatchTask
 import com.mindful.android.helpers.device.DeviceAppsHelper.getDeviceAppInfos
+import com.mindful.android.helpers.device.GrayscaleHelper
 import com.mindful.android.helpers.device.NewActivitiesLaunchHelper
 import com.mindful.android.helpers.device.NotificationHelper
 import com.mindful.android.helpers.device.PermissionsHelper
@@ -362,6 +363,10 @@ class FgMethodCallHandler(
 
             "getAndAskVpnPermission" -> {
                 result.success(getAndAskVpnPermission(call.arguments() ?: false))
+            }
+
+            "hasWriteSecureSettingsPermission" -> {
+                result.success(GrayscaleHelper.hasPermission(context))
             }
 
             // ==============================================================================================================

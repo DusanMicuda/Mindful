@@ -1315,6 +1315,64 @@ class AppLocalizationsCs extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'Odstíny šedi při otevření';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'Zobrazit obrazovku v odstínech šedi, dokud je tato aplikace otevřená.';
+
+  @override
+  String get grayscale_permission_dialog_title =>
+      'Povolit přístup k zabezpečenému nastavení';
+
+  @override
+  String get grayscale_permission_usb_title => 'USB ADB z počítače';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'Povolte Možnosti pro vývojáře a ladění USB, připojte zařízení k počítači a spusťte:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'Bezdrátové ladění z počítače (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'Povolte Možnosti pro vývojáře a Bezdrátové ladění. Spárujte pomocí `adb pair`, připojte pomocí `adb connect` a spusťte:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      'ADB v zařízení bez počítače (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'Povolte Možnosti pro vývojáře a Bezdrátové ladění a poté spárujte aplikaci s ADB shellem, například LADB. Spusťte tento příkaz v jejím shellu:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Spusťte tento příkaz v shellu `rish` aplikace Shizuku. Mindful se s Shizuku neintegruje:';
+
+  @override
+  String get grayscale_permission_root_title => 'Zařízení s rootem';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'Spusťte tento příkaz v root shellu:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'Oprávnění zůstává po restartu i aktualizaci aplikace. Ztratí se po odinstalaci Mindful nebo vymazání jeho dat. Po udělení klepněte na přepínač znovu; Mindful kontroluje oprávnění při každém klepnutí.';
+
+  @override
+  String get grayscale_permission_copy_command => 'Kopírovat příkaz';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'Příkaz ADB zkopírován.';
+
+  @override
   String get launch_app_tile_title => 'Launch app';
 
   @override

@@ -1315,6 +1315,61 @@ class AppLocalizationsKo extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => '열려 있는 동안 흑백';
+
+  @override
+  String get grayscale_tile_subtitle => '이 앱이 열려 있는 동안 화면을 흑백으로 표시합니다.';
+
+  @override
+  String get grayscale_permission_dialog_title => '보안 설정 접근 허용';
+
+  @override
+  String get grayscale_permission_usb_title => '컴퓨터에서 USB ADB 사용';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      '개발자 옵션과 USB 디버깅을 켜고 기기를 컴퓨터에 연결한 다음 실행하세요:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      '컴퓨터에서 무선 디버깅 사용 (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      '개발자 옵션과 무선 디버깅을 켭니다. `adb pair`로 페어링하고 `adb connect`로 연결한 다음 실행하세요:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      '컴퓨터 없이 기기에서 ADB 사용 (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      '개발자 옵션과 무선 디버깅을 켠 다음 LADB 같은 ADB 셸 앱과 페어링하세요. 해당 셸에서 이 명령어를 실행하세요:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Shizuku의 `rish` 셸에서 이 명령어를 실행하세요. Mindful은 Shizuku와 연동되지 않습니다:';
+
+  @override
+  String get grayscale_permission_root_title => '루팅된 기기';
+
+  @override
+  String get grayscale_permission_root_steps => '루트 셸에서 이 명령어를 실행하세요:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      '권한은 재부팅과 앱 업데이트 후에도 유지됩니다. Mindful을 삭제하거나 데이터를 지우면 사라집니다. 권한을 부여한 후 토글을 다시 탭하세요. Mindful은 탭할 때마다 권한을 확인합니다.';
+
+  @override
+  String get grayscale_permission_copy_command => '명령어 복사';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'ADB 명령어를 복사했습니다.';
+
+  @override
   String get launch_app_tile_title => 'Launch app';
 
   @override

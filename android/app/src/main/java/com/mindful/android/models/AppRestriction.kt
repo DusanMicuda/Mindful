@@ -42,6 +42,11 @@ data class AppRestriction(
      * ID of the restriction group this app belongs to (nullable).
      */
     val associatedGroupId: Int? = null,
+
+    /**
+     * Whether the screen should be grayscale while this app is open.
+     */
+    val grayscaleEnabled: Boolean = false,
 ) {
     companion object {
         /**
@@ -59,6 +64,7 @@ data class AppRestriction(
                 associatedGroupId = if (jsonObject.isNull("associatedGroupId")) null else jsonObject.optInt(
                     "associatedGroupId"
                 ),
+                grayscaleEnabled = jsonObject.optBoolean("grayscaleEnabled", false),
             )
         }
     }

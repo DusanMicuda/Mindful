@@ -6,6 +6,7 @@ import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.util.Log
 import androidx.annotation.WorkerThread
+import com.mindful.android.helpers.device.GrayscaleHelper
 import com.mindful.android.receivers.AccessibilityReceiver
 import com.mindful.android.receivers.DeviceLockUnlockReceiver
 import com.mindful.android.services.accessibility.MindfulAccessibilityService
@@ -158,6 +159,7 @@ class LaunchTrackingManager(
      */
     fun pauseResumeTracking(shouldPause: Boolean) {
         isTrackingPaused = shouldPause
+        if (shouldPause) GrayscaleHelper.setGrayscale(context, false)
         if (!shouldPause) invokeNewAppLaunched(lastLaunchedApp)
     }
 

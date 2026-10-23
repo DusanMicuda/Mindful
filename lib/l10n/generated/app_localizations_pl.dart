@@ -1317,6 +1317,65 @@ class AppLocalizationsPl extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'Skala szarości po otwarciu';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'Wyświetlaj ekran w skali szarości, gdy ta aplikacja jest otwarta.';
+
+  @override
+  String get grayscale_permission_dialog_title =>
+      'Zezwól na dostęp do ustawień zabezpieczonych';
+
+  @override
+  String get grayscale_permission_usb_title => 'ADB przez USB z komputera';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'Włącz Opcje programisty i debugowanie USB, podłącz urządzenie do komputera, a następnie uruchom:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'Debugowanie bezprzewodowe z komputera (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'Włącz Opcje programisty i Debugowanie bezprzewodowe. Sparuj poleceniem `adb pair`, połącz poleceniem `adb connect`, a następnie uruchom:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      'ADB na urządzeniu bez komputera (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'Włącz Opcje programisty i Debugowanie bezprzewodowe, a następnie sparuj aplikację powłoki ADB, taką jak LADB. Uruchom to polecenie w jej powłoce:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Uruchom to polecenie w powłoce `rish` aplikacji Shizuku. Mindful nie integruje się z Shizuku:';
+
+  @override
+  String get grayscale_permission_root_title => 'Urządzenia z rootem';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'Uruchom to polecenie w powłoce root:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'Uprawnienie zostaje po ponownym uruchomieniu i aktualizacjach aplikacji. Traci się je po odinstalowaniu Mindful lub wyczyszczeniu jego danych. Po nadaniu uprawnienia dotknij przełącznika ponownie; Mindful sprawdza uprawnienie przy każdym dotknięciu.';
+
+  @override
+  String get grayscale_permission_copy_command => 'Kopiuj polecenie';
+
+  @override
+  String get grayscale_command_copied_snack_alert =>
+      'Skopiowano polecenie ADB.';
+
+  @override
   String get launch_app_tile_title => 'Launch app';
 
   @override

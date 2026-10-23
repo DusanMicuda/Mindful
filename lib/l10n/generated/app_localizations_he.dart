@@ -1315,6 +1315,63 @@ class AppLocalizationsHe extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'גווני אפור בזמן שהאפליקציה פתוחה';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'הצג את המסך בגווני אפור בזמן שאפליקציה זו פתוחה.';
+
+  @override
+  String get grayscale_permission_dialog_title => 'אפשר גישה להגדרות מאובטחות';
+
+  @override
+  String get grayscale_permission_usb_title => '‏ADB דרך USB ממחשב';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'הפעל את אפשרויות המפתחים ואת ניפוי הבאגים ב-USB, חבר את המכשיר למחשב והרץ:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'ניפוי באגים אלחוטי ממחשב (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'הפעל את אפשרויות המפתחים ואת ניפוי הבאגים האלחוטי. בצע התאמה עם `adb pair`, התחבר עם `adb connect` והרץ:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      '‏ADB במכשיר ללא מחשב (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'הפעל את אפשרויות המפתחים ואת ניפוי הבאגים האלחוטי, ולאחר מכן בצע התאמה עם אפליקציית ADB shell כמו LADB. הרץ את הפקודה הזו ב-shell שלה:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'הרץ את הפקודה הזו ב-shell של `rish` ב-Shizuku. Mindful אינה משתלבת עם Shizuku:';
+
+  @override
+  String get grayscale_permission_root_title => 'מכשירים עם root';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'הרץ את הפקודה הזו ב-shell עם root:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'ההרשאה נשמרת לאחר הפעלה מחדש ועדכוני אפליקציה. היא אובדת אם Mindful מוסרת או שהנתונים שלה נמחקים. לאחר מתן ההרשאה, הקש שוב על המתג; Mindful בודקת את ההרשאה בכל הקשה.';
+
+  @override
+  String get grayscale_permission_copy_command => 'העתק פקודה';
+
+  @override
+  String get grayscale_command_copied_snack_alert => 'פקודת ADB הועתקה.';
+
+  @override
   String get launch_app_tile_title => 'Launch app';
 
   @override

@@ -1315,6 +1315,65 @@ class AppLocalizationsRo extends AppLocalizations {
   }
 
   @override
+  String get grayscale_tile_title => 'Tonuri de gri cât timp este deschisă';
+
+  @override
+  String get grayscale_tile_subtitle =>
+      'Afișează ecranul în tonuri de gri cât timp această aplicație este deschisă.';
+
+  @override
+  String get grayscale_permission_dialog_title =>
+      'Permite accesul la setările securizate';
+
+  @override
+  String get grayscale_permission_usb_title => 'ADB prin USB de pe un computer';
+
+  @override
+  String get grayscale_permission_usb_steps =>
+      'Activează Opțiunile pentru dezvoltatori și depanarea USB, conectează dispozitivul la un computer, apoi rulează:';
+
+  @override
+  String get grayscale_permission_wireless_title =>
+      'Depanare wireless de pe un computer (Android 11+)';
+
+  @override
+  String get grayscale_permission_wireless_steps =>
+      'Activează Opțiunile pentru dezvoltatori și Depanarea wireless. Asociază cu `adb pair`, conectează-te cu `adb connect`, apoi rulează:';
+
+  @override
+  String get grayscale_permission_ladb_title =>
+      'ADB pe dispozitiv, fără computer (Android 11+)';
+
+  @override
+  String get grayscale_permission_ladb_steps =>
+      'Activează Opțiunile pentru dezvoltatori și Depanarea wireless, apoi asociază o aplicație shell ADB precum LADB. Rulează această comandă în shell-ul ei:';
+
+  @override
+  String get grayscale_permission_shizuku_title => 'Shizuku';
+
+  @override
+  String get grayscale_permission_shizuku_steps =>
+      'Rulează această comandă în shell-ul `rish` din Shizuku. Mindful nu se integrează cu Shizuku:';
+
+  @override
+  String get grayscale_permission_root_title => 'Dispozitive cu root';
+
+  @override
+  String get grayscale_permission_root_steps =>
+      'Rulează această comandă într-un shell root:';
+
+  @override
+  String get grayscale_permission_persistence =>
+      'Permisiunea rămâne după reporniri și actualizări ale aplicației. Se pierde dacă Mindful este dezinstalată sau dacă datele ei sunt șterse. După acordare, atinge din nou comutatorul; Mindful verifică permisiunea la fiecare atingere.';
+
+  @override
+  String get grayscale_permission_copy_command => 'Copiază comanda';
+
+  @override
+  String get grayscale_command_copied_snack_alert =>
+      'Comanda ADB a fost copiată.';
+
+  @override
   String get launch_app_tile_title => 'Launch app';
 
   @override

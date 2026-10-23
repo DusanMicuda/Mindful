@@ -39,6 +39,10 @@ class RestrictionManager(
     private val alreadyRestrictedApps = HashMap<String, RestrictionState>(0)
     private val alreadyRestrictedGroups = HashMap<Int, RestrictionState>(0)
 
+    /** Whether grayscale is enabled for the given app. */
+    fun isGrayscaleEnabled(packageName: String): Boolean =
+        appsRestrictions[packageName]?.grayscaleEnabled == true
+
     fun resetCache() {
         alreadyRestrictedApps.clear()
         alreadyRestrictedGroups.clear()
