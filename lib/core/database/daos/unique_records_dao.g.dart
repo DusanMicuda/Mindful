@@ -16,4 +16,31 @@ mixin _$UniqueRecordsDaoMixin on DatabaseAccessor<AppDatabase> {
       attachedDatabase.sharedUniqueDataTable;
   $NotificationSettingsTableTable get notificationSettingsTable =>
       attachedDatabase.notificationSettingsTable;
+  UniqueRecordsDaoManager get managers => UniqueRecordsDaoManager(this);
+}
+
+class UniqueRecordsDaoManager {
+  final _$UniqueRecordsDaoMixin _db;
+  UniqueRecordsDaoManager(this._db);
+  $$MindfulSettingsTableTableTableManager get mindfulSettingsTable =>
+      $$MindfulSettingsTableTableTableManager(
+          _db.attachedDatabase, _db.mindfulSettingsTable);
+  $$ParentalControlsTableTableTableManager get parentalControlsTable =>
+      $$ParentalControlsTableTableTableManager(
+          _db.attachedDatabase, _db.parentalControlsTable);
+  $$BedtimeScheduleTableTableTableManager get bedtimeScheduleTable =>
+      $$BedtimeScheduleTableTableTableManager(
+          _db.attachedDatabase, _db.bedtimeScheduleTable);
+  $$FocusModeTableTableTableManager get focusModeTable =>
+      $$FocusModeTableTableTableManager(
+          _db.attachedDatabase, _db.focusModeTable);
+  $$WellbeingTableTableTableManager get wellbeingTable =>
+      $$WellbeingTableTableTableManager(
+          _db.attachedDatabase, _db.wellbeingTable);
+  $$SharedUniqueDataTableTableTableManager get sharedUniqueDataTable =>
+      $$SharedUniqueDataTableTableTableManager(
+          _db.attachedDatabase, _db.sharedUniqueDataTable);
+  $$NotificationSettingsTableTableTableManager get notificationSettingsTable =>
+      $$NotificationSettingsTableTableTableManager(
+          _db.attachedDatabase, _db.notificationSettingsTable);
 }
