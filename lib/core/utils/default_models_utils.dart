@@ -90,6 +90,7 @@ const defaultAppRestrictionModel = AppRestriction(
   appPackage: "",
   timerSec: 0,
   launchLimit: 0,
+  launchDelaySec: 0,
   activePeriodStart: TimeOfDayAdapter.zero(),
   activePeriodEnd: TimeOfDayAdapter.zero(),
   periodDurationInMins: 0,

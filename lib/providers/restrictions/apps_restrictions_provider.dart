@@ -90,6 +90,24 @@ class AppsRestrictionsNotifier
     _updateStateDbAndServices(appPackage, restriction);
   }
 
+  /// Updates the launch delay in seconds for a specific app package.
+  ///
+  /// Anyway updated the platform-specific service.
+  Future<void> updateAppLaunchDelay(
+    String appPackage,
+    int launchDelaySec,
+  ) async {
+    final restriction =
+        state[appPackage]?.copyWith(launchDelaySec: launchDelaySec) ??
+            defaultAppRestrictionModel.copyWith(
+              appPackage: appPackage,
+              launchDelaySec: launchDelaySec,
+            );
+
+    /// Update database and state
+    _updateStateDbAndServices(appPackage, restriction);
+  }
+
   /// Updates the active period time for a specific app package.
   ///
   /// Anyway updated the platform-specific service.
@@ -217,6 +235,7 @@ class AppsRestrictionsNotifier
               _installedApps.contains(e.appPackage) &&
               (e.timerSec > 0 ||
                   e.launchLimit > 0 ||
+                  e.launchDelaySec > 0 ||
                   e.periodDurationInMins > 0 ||
                   e.associatedGroupId != null),
         )

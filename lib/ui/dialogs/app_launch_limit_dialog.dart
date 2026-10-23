@@ -26,12 +26,18 @@ Future<int?> showAppLaunchLimitDialog({
   required BuildContext context,
   required Object heroTag,
   required int initialCount,
+  String? title,
+  String? info,
+  int? max,
 }) async {
   return await Navigator.of(context).push<int>(
     HeroPageRoute(
       builder: (context) => _LaunchLimitDialog(
         heroTag: heroTag,
         initialCount: initialCount,
+        title: title,
+        info: info,
+        maxCount: max,
       ),
     ),
   );
@@ -41,10 +47,16 @@ class _LaunchLimitDialog extends StatefulWidget {
   const _LaunchLimitDialog({
     required this.heroTag,
     required this.initialCount,
+    this.title,
+    this.info,
+    this.maxCount,
   });
 
   final Object heroTag;
   final int initialCount;
+  final String? title;
+  final String? info;
+  final int? maxCount;
 
   @override
   State<_LaunchLimitDialog> createState() => _LaunchLimitDialogState();
@@ -57,16 +69,18 @@ class _LaunchLimitDialogState extends State<_LaunchLimitDialog> {
   @override
   void initState() {
     super.initState();
-    _controller.text = widget.initialCount.toString();
-    _launchLimit = widget.initialCount;
+    _launchLimit = _clamp(widget.initialCount);
+    _controller.text = _launchLimit.toString();
   }
+
+  int _clamp(int value) => min(value, widget.maxCount ?? value);
 
   void _changeLimit(int direction) {
     setState(() {
-      _launchLimit = max(
+      _launchLimit = _clamp(max(
         0,
         (direction.isNegative ? (_launchLimit - 5) : (_launchLimit + 5)),
-      );
+      ));
 
       _controller.text = _launchLimit.toString();
     });
@@ -84,8 +98,10 @@ class _LaunchLimitDialogState extends State<_LaunchLimitDialog> {
             child: AlertDialog(
               scrollable: true,
               icon: const Icon(FluentIcons.rocket_20_filled),
-              title: StyledText(context.locale.app_launch_limit_tile_title,
-                  fontSize: 16),
+              title: StyledText(
+                widget.title ?? context.locale.app_launch_limit_tile_title,
+                fontSize: 16,
+              ),
               insetPadding: EdgeInsets.zero,
               content: Container(
                 width: MediaQuery.of(context).size.width,
@@ -96,7 +112,8 @@ class _LaunchLimitDialogState extends State<_LaunchLimitDialog> {
                   child: Column(
                     children: [
                       StyledText(
-                        context.locale.app_launch_limit_picker_dialog_info,
+                        widget.info ??
+                            context.locale.app_launch_limit_picker_dialog_info,
                       ),
                       32.vBox,
                       Padding(
@@ -125,8 +142,20 @@ class _LaunchLimitDialogState extends State<_LaunchLimitDialog> {
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly
                                 ],
-                                onChanged: (value) => _launchLimit =
-                                    int.tryParse(value) ?? _launchLimit,
+                                onChanged: (value) {
+                                  final parsed = int.tryParse(value);
+                                  if (parsed == null) return;
+                                  _launchLimit = _clamp(parsed);
+                                  if (_launchLimit != parsed) {
+                                    final s = _launchLimit.toString();
+                                    _controller.value = TextEditingValue(
+                                      text: s,
+                                      selection: TextSelection.collapsed(
+                                        offset: s.length,
+                                      ),
+                                    );
+                                  }
+                                },
                                 decoration: const InputDecoration(
                                   counter: SizedBox.shrink(),
                                   border: InputBorder.none,

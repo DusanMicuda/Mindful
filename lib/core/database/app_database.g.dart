@@ -31,6 +31,14 @@ class $AppRestrictionTableTable extends AppRestrictionTable
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultValue: const Constant(0));
+  static const VerificationMeta _launchDelaySecMeta =
+      const VerificationMeta('launchDelaySec');
+  @override
+  late final GeneratedColumn<int> launchDelaySec = GeneratedColumn<int>(
+      'launch_delay_sec', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
   @override
   late final GeneratedColumnWithTypeConverter<TimeOfDayAdapter, int>
       activePeriodStart = GeneratedColumn<int>(
@@ -89,6 +97,7 @@ class $AppRestrictionTableTable extends AppRestrictionTable
         appPackage,
         timerSec,
         launchLimit,
+        launchDelaySec,
         activePeriodStart,
         activePeriodEnd,
         periodDurationInMins,
@@ -124,6 +133,12 @@ class $AppRestrictionTableTable extends AppRestrictionTable
           launchLimit.isAcceptableOrUnknown(
               data['launch_limit']!, _launchLimitMeta));
     }
+    if (data.containsKey('launch_delay_sec')) {
+      context.handle(
+          _launchDelaySecMeta,
+          launchDelaySec.isAcceptableOrUnknown(
+              data['launch_delay_sec']!, _launchDelaySecMeta));
+    }
     if (data.containsKey('period_duration_in_mins')) {
       context.handle(
           _periodDurationInMinsMeta,
@@ -157,6 +172,8 @@ class $AppRestrictionTableTable extends AppRestrictionTable
           .read(DriftSqlType.int, data['${effectivePrefix}timer_sec'])!,
       launchLimit: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}launch_limit'])!,
+      launchDelaySec: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}launch_delay_sec'])!,
       activePeriodStart: $AppRestrictionTableTable.$converteractivePeriodStart
           .fromSql(attachedDatabase.typeMapping.read(DriftSqlType.int,
               data['${effectivePrefix}active_period_start'])!),
@@ -199,6 +216,9 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
   /// The number of times user can launch this app
   final int launchLimit;
 
+  /// Seconds user must wait on every launch, 0 = off
+  final int launchDelaySec;
+
   /// [TimeOfDay] in minutes from where the active period will start.
   /// It is stored as total minutes.
   final TimeOfDayAdapter activePeriodStart;
@@ -222,6 +242,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
       {required this.appPackage,
       required this.timerSec,
       required this.launchLimit,
+      required this.launchDelaySec,
       required this.activePeriodStart,
       required this.activePeriodEnd,
       required this.periodDurationInMins,
@@ -234,6 +255,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
     map['app_package'] = Variable<String>(appPackage);
     map['timer_sec'] = Variable<int>(timerSec);
     map['launch_limit'] = Variable<int>(launchLimit);
+    map['launch_delay_sec'] = Variable<int>(launchDelaySec);
     {
       map['active_period_start'] = Variable<int>($AppRestrictionTableTable
           .$converteractivePeriodStart
@@ -261,6 +283,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
       appPackage: Value(appPackage),
       timerSec: Value(timerSec),
       launchLimit: Value(launchLimit),
+      launchDelaySec: Value(launchDelaySec),
       activePeriodStart: Value(activePeriodStart),
       activePeriodEnd: Value(activePeriodEnd),
       periodDurationInMins: Value(periodDurationInMins),
@@ -279,6 +302,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
       appPackage: serializer.fromJson<String>(json['appPackage']),
       timerSec: serializer.fromJson<int>(json['timerSec']),
       launchLimit: serializer.fromJson<int>(json['launchLimit']),
+      launchDelaySec: serializer.fromJson<int>(json['launchDelaySec']),
       activePeriodStart: $AppRestrictionTableTable.$converteractivePeriodStart
           .fromJson(serializer.fromJson<dynamic>(json['activePeriodStart'])),
       activePeriodEnd: $AppRestrictionTableTable.$converteractivePeriodEnd
@@ -298,6 +322,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
       'appPackage': serializer.toJson<String>(appPackage),
       'timerSec': serializer.toJson<int>(timerSec),
       'launchLimit': serializer.toJson<int>(launchLimit),
+      'launchDelaySec': serializer.toJson<int>(launchDelaySec),
       'activePeriodStart': serializer.toJson<dynamic>($AppRestrictionTableTable
           .$converteractivePeriodStart
           .toJson(activePeriodStart)),
@@ -317,6 +342,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
           {String? appPackage,
           int? timerSec,
           int? launchLimit,
+          int? launchDelaySec,
           TimeOfDayAdapter? activePeriodStart,
           TimeOfDayAdapter? activePeriodEnd,
           int? periodDurationInMins,
@@ -327,6 +353,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
         appPackage: appPackage ?? this.appPackage,
         timerSec: timerSec ?? this.timerSec,
         launchLimit: launchLimit ?? this.launchLimit,
+        launchDelaySec: launchDelaySec ?? this.launchDelaySec,
         activePeriodStart: activePeriodStart ?? this.activePeriodStart,
         activePeriodEnd: activePeriodEnd ?? this.activePeriodEnd,
         periodDurationInMins: periodDurationInMins ?? this.periodDurationInMins,
@@ -343,6 +370,9 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
       timerSec: data.timerSec.present ? data.timerSec.value : this.timerSec,
       launchLimit:
           data.launchLimit.present ? data.launchLimit.value : this.launchLimit,
+      launchDelaySec: data.launchDelaySec.present
+          ? data.launchDelaySec.value
+          : this.launchDelaySec,
       activePeriodStart: data.activePeriodStart.present
           ? data.activePeriodStart.value
           : this.activePeriodStart,
@@ -370,6 +400,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
           ..write('appPackage: $appPackage, ')
           ..write('timerSec: $timerSec, ')
           ..write('launchLimit: $launchLimit, ')
+          ..write('launchDelaySec: $launchDelaySec, ')
           ..write('activePeriodStart: $activePeriodStart, ')
           ..write('activePeriodEnd: $activePeriodEnd, ')
           ..write('periodDurationInMins: $periodDurationInMins, ')
@@ -385,6 +416,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
       appPackage,
       timerSec,
       launchLimit,
+      launchDelaySec,
       activePeriodStart,
       activePeriodEnd,
       periodDurationInMins,
@@ -398,6 +430,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
           other.appPackage == this.appPackage &&
           other.timerSec == this.timerSec &&
           other.launchLimit == this.launchLimit &&
+          other.launchDelaySec == this.launchDelaySec &&
           other.activePeriodStart == this.activePeriodStart &&
           other.activePeriodEnd == this.activePeriodEnd &&
           other.periodDurationInMins == this.periodDurationInMins &&
@@ -410,6 +443,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
   final Value<String> appPackage;
   final Value<int> timerSec;
   final Value<int> launchLimit;
+  final Value<int> launchDelaySec;
   final Value<TimeOfDayAdapter> activePeriodStart;
   final Value<TimeOfDayAdapter> activePeriodEnd;
   final Value<int> periodDurationInMins;
@@ -421,6 +455,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
     this.appPackage = const Value.absent(),
     this.timerSec = const Value.absent(),
     this.launchLimit = const Value.absent(),
+    this.launchDelaySec = const Value.absent(),
     this.activePeriodStart = const Value.absent(),
     this.activePeriodEnd = const Value.absent(),
     this.periodDurationInMins = const Value.absent(),
@@ -433,6 +468,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
     required String appPackage,
     this.timerSec = const Value.absent(),
     this.launchLimit = const Value.absent(),
+    this.launchDelaySec = const Value.absent(),
     this.activePeriodStart = const Value.absent(),
     this.activePeriodEnd = const Value.absent(),
     this.periodDurationInMins = const Value.absent(),
@@ -445,6 +481,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
     Expression<String>? appPackage,
     Expression<int>? timerSec,
     Expression<int>? launchLimit,
+    Expression<int>? launchDelaySec,
     Expression<int>? activePeriodStart,
     Expression<int>? activePeriodEnd,
     Expression<int>? periodDurationInMins,
@@ -457,6 +494,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
       if (appPackage != null) 'app_package': appPackage,
       if (timerSec != null) 'timer_sec': timerSec,
       if (launchLimit != null) 'launch_limit': launchLimit,
+      if (launchDelaySec != null) 'launch_delay_sec': launchDelaySec,
       if (activePeriodStart != null) 'active_period_start': activePeriodStart,
       if (activePeriodEnd != null) 'active_period_end': activePeriodEnd,
       if (periodDurationInMins != null)
@@ -472,6 +510,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
       {Value<String>? appPackage,
       Value<int>? timerSec,
       Value<int>? launchLimit,
+      Value<int>? launchDelaySec,
       Value<TimeOfDayAdapter>? activePeriodStart,
       Value<TimeOfDayAdapter>? activePeriodEnd,
       Value<int>? periodDurationInMins,
@@ -483,6 +522,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
       appPackage: appPackage ?? this.appPackage,
       timerSec: timerSec ?? this.timerSec,
       launchLimit: launchLimit ?? this.launchLimit,
+      launchDelaySec: launchDelaySec ?? this.launchDelaySec,
       activePeriodStart: activePeriodStart ?? this.activePeriodStart,
       activePeriodEnd: activePeriodEnd ?? this.activePeriodEnd,
       periodDurationInMins: periodDurationInMins ?? this.periodDurationInMins,
@@ -504,6 +544,9 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
     }
     if (launchLimit.present) {
       map['launch_limit'] = Variable<int>(launchLimit.value);
+    }
+    if (launchDelaySec.present) {
+      map['launch_delay_sec'] = Variable<int>(launchDelaySec.value);
     }
     if (activePeriodStart.present) {
       map['active_period_start'] = Variable<int>($AppRestrictionTableTable
@@ -542,6 +585,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
           ..write('appPackage: $appPackage, ')
           ..write('timerSec: $timerSec, ')
           ..write('launchLimit: $launchLimit, ')
+          ..write('launchDelaySec: $launchDelaySec, ')
           ..write('activePeriodStart: $activePeriodStart, ')
           ..write('activePeriodEnd: $activePeriodEnd, ')
           ..write('periodDurationInMins: $periodDurationInMins, ')
@@ -6041,6 +6085,7 @@ typedef $$AppRestrictionTableTableCreateCompanionBuilder
   required String appPackage,
   Value<int> timerSec,
   Value<int> launchLimit,
+  Value<int> launchDelaySec,
   Value<TimeOfDayAdapter> activePeriodStart,
   Value<TimeOfDayAdapter> activePeriodEnd,
   Value<int> periodDurationInMins,
@@ -6054,6 +6099,7 @@ typedef $$AppRestrictionTableTableUpdateCompanionBuilder
   Value<String> appPackage,
   Value<int> timerSec,
   Value<int> launchLimit,
+  Value<int> launchDelaySec,
   Value<TimeOfDayAdapter> activePeriodStart,
   Value<TimeOfDayAdapter> activePeriodEnd,
   Value<int> periodDurationInMins,
@@ -6080,6 +6126,10 @@ class $$AppRestrictionTableTableFilterComposer
 
   ColumnFilters<int> get launchLimit => $composableBuilder(
       column: $table.launchLimit, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get launchDelaySec => $composableBuilder(
+      column: $table.launchDelaySec,
+      builder: (column) => ColumnFilters(column));
 
   ColumnWithTypeConverterFilters<TimeOfDayAdapter, TimeOfDayAdapter, int>
       get activePeriodStart => $composableBuilder(
@@ -6127,6 +6177,10 @@ class $$AppRestrictionTableTableOrderingComposer
   ColumnOrderings<int> get launchLimit => $composableBuilder(
       column: $table.launchLimit, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<int> get launchDelaySec => $composableBuilder(
+      column: $table.launchDelaySec,
+      builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<int> get activePeriodStart => $composableBuilder(
       column: $table.activePeriodStart,
       builder: (column) => ColumnOrderings(column));
@@ -6169,6 +6223,9 @@ class $$AppRestrictionTableTableAnnotationComposer
 
   GeneratedColumn<int> get launchLimit => $composableBuilder(
       column: $table.launchLimit, builder: (column) => column);
+
+  GeneratedColumn<int> get launchDelaySec => $composableBuilder(
+      column: $table.launchDelaySec, builder: (column) => column);
 
   GeneratedColumnWithTypeConverter<TimeOfDayAdapter, int>
       get activePeriodStart => $composableBuilder(
@@ -6224,6 +6281,7 @@ class $$AppRestrictionTableTableTableManager extends RootTableManager<
             Value<String> appPackage = const Value.absent(),
             Value<int> timerSec = const Value.absent(),
             Value<int> launchLimit = const Value.absent(),
+            Value<int> launchDelaySec = const Value.absent(),
             Value<TimeOfDayAdapter> activePeriodStart = const Value.absent(),
             Value<TimeOfDayAdapter> activePeriodEnd = const Value.absent(),
             Value<int> periodDurationInMins = const Value.absent(),
@@ -6236,6 +6294,7 @@ class $$AppRestrictionTableTableTableManager extends RootTableManager<
             appPackage: appPackage,
             timerSec: timerSec,
             launchLimit: launchLimit,
+            launchDelaySec: launchDelaySec,
             activePeriodStart: activePeriodStart,
             activePeriodEnd: activePeriodEnd,
             periodDurationInMins: periodDurationInMins,
@@ -6248,6 +6307,7 @@ class $$AppRestrictionTableTableTableManager extends RootTableManager<
             required String appPackage,
             Value<int> timerSec = const Value.absent(),
             Value<int> launchLimit = const Value.absent(),
+            Value<int> launchDelaySec = const Value.absent(),
             Value<TimeOfDayAdapter> activePeriodStart = const Value.absent(),
             Value<TimeOfDayAdapter> activePeriodEnd = const Value.absent(),
             Value<int> periodDurationInMins = const Value.absent(),
@@ -6260,6 +6320,7 @@ class $$AppRestrictionTableTableTableManager extends RootTableManager<
             appPackage: appPackage,
             timerSec: timerSec,
             launchLimit: launchLimit,
+            launchDelaySec: launchDelaySec,
             activePeriodStart: activePeriodStart,
             activePeriodEnd: activePeriodEnd,
             periodDurationInMins: periodDurationInMins,

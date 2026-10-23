@@ -65,6 +65,10 @@ class HeroTags {
   static String appLaunchLimitTileTag(String package) =>
       "appDashboard.launchLimitTile.$package";
 
+  /// Generates a tag for an app launch delay tile based on the provided package name.
+  static String appLaunchDelayTileTag(String package) =>
+      "appDashboard.launchDelayTile.$package";
+
   /// Tag used to identify in focus mode.
   static const focusModeFABTag = "focus.focusModeFab";
 

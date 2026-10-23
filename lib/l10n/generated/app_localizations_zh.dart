@@ -1202,6 +1202,24 @@ class AppLocalizationsZh extends AppLocalizations {
       '设置每天可以打开此应用程序的次数。一旦达到限制，应用程序将暂停，直到午夜。';
 
   @override
+  String get app_launch_delay_tile_title => 'Launch delay';
+
+  @override
+  String app_launch_delay_tile_subtitle(int seconds) {
+    String _temp0 = intl.Intl.pluralLogic(
+      seconds,
+      locale: localeName,
+      other: 'Wait $seconds seconds before opening.',
+      one: 'Wait 1 second before opening.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get app_launch_delay_picker_dialog_info =>
+      'Set how many seconds you must wait each time you open this app. Set 0 to turn it off. Maximum 300.';
+
+  @override
   String get app_active_period_tile_title => '活动周期';
 
   @override

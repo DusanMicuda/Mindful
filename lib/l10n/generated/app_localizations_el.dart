@@ -1307,6 +1307,24 @@ class AppLocalizationsEl extends AppLocalizations {
       'Όρισε πόσες φορές μπορείς να ανοίξεις αυτήν την εφαρμογή κάθε μέρα. Μόλις συμπληρωθεί το όριο, θα τεθεί σε παύση μέχρι τα μεσάνυχτα.';
 
   @override
+  String get app_launch_delay_tile_title => 'Launch delay';
+
+  @override
+  String app_launch_delay_tile_subtitle(int seconds) {
+    String _temp0 = intl.Intl.pluralLogic(
+      seconds,
+      locale: localeName,
+      other: 'Wait $seconds seconds before opening.',
+      one: 'Wait 1 second before opening.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get app_launch_delay_picker_dialog_info =>
+      'Set how many seconds you must wait each time you open this app. Set 0 to turn it off. Maximum 300.';
+
+  @override
   String get app_active_period_tile_title => 'Ενεργός περίοδος';
 
   @override

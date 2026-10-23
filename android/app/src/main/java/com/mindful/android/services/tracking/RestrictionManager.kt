@@ -76,6 +76,12 @@ class RestrictionManager(
     }
 
 
+    /**
+     * Returns launch delay in seconds configured for [packageName], 0 if none.
+     */
+    fun launchDelaySecOf(packageName: String): Int =
+        appsRestrictions[packageName]?.launchDelaySec ?: 0
+
     // returns nearest time stamp for rechecking
     fun isAppRestricted(packageName: String): RestrictionState? {
         // If already restricted by focus or bedtime or cached

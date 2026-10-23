@@ -27,6 +27,9 @@ class AppRestrictionTable extends Table {
   /// The number of times user can launch this app
   IntColumn get launchLimit => integer().withDefault(const Constant(0))();
 
+  /// Seconds user must wait on every launch, 0 = off
+  IntColumn get launchDelaySec => integer().withDefault(const Constant(0))();
+
   /// [TimeOfDay] in minutes from where the active period will start.
   /// It is stored as total minutes.
   IntColumn get activePeriodStart => integer()

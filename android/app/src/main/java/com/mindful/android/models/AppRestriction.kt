@@ -24,6 +24,11 @@ data class AppRestriction(
     val launchLimit: Int = 0,
 
     /**
+     * Seconds user must wait on every launch, 0 = off.
+     */
+    val launchDelaySec: Int = 0,
+
+    /**
      * Time of day (in minutes) from midnight when the app usage is allowed to start.
      */
     val activePeriodStart: Int = 0,
@@ -53,6 +58,7 @@ data class AppRestriction(
                 appPackage = jsonObject.optString("appPackage", ""),
                 timerSec = jsonObject.optInt("timerSec", 0),
                 launchLimit = jsonObject.optInt("launchLimit", 0),
+                launchDelaySec = jsonObject.optInt("launchDelaySec", 0),
                 activePeriodStart = jsonObject.optInt("activePeriodStart", 0),
                 activePeriodEnd = jsonObject.optInt("activePeriodEnd", 0),
                 reminderType = ReminderType.fromName(jsonObject.optString("reminderType", "toast")),

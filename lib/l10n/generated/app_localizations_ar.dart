@@ -1287,6 +1287,24 @@ class AppLocalizationsAr extends AppLocalizations {
       'حدد عدد المرات التي يمكنك فيها فتح هذا التطبيق يوميا. بمجرد الوصول إلى الحد، سيتم إيقافه مؤقتا حتى منتصف الليل.';
 
   @override
+  String get app_launch_delay_tile_title => 'Launch delay';
+
+  @override
+  String app_launch_delay_tile_subtitle(int seconds) {
+    String _temp0 = intl.Intl.pluralLogic(
+      seconds,
+      locale: localeName,
+      other: 'Wait $seconds seconds before opening.',
+      one: 'Wait 1 second before opening.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get app_launch_delay_picker_dialog_info =>
+      'Set how many seconds you must wait each time you open this app. Set 0 to turn it off. Maximum 300.';
+
+  @override
   String get app_active_period_tile_title => 'الفترة النشطة';
 
   @override

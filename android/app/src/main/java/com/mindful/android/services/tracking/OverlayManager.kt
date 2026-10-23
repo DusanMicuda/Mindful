@@ -42,25 +42,33 @@ class OverlayManager(
 
     /// Animate out the overlay
     fun dismissSheetOverlay() {
-        overlays.pollFirst()?.let { sheetOverlay ->
-            ThreadUtils.runOnMainThread {
-                // Get views
-                val bg = sheetOverlay.findViewById<View>(R.id.overlay_background)
-                val quote = sheetOverlay.findViewById<View>(R.id.overlay_sheet_quote_panel)
-                val sheet = sheetOverlay.findViewById<LinearLayout>(R.id.overlay_sheet)
+        overlays.pollFirst()?.let(::animateOut)
+    }
 
-                // Animate
-                bg.animate().alpha(0f).setDuration(400).start()
-                quote.animate().alpha(0f).setDuration(400).start()
-                sheet.animate()
-                    .translationY(SLIDE_DOWN_END_Y)
-                    .setInterpolator(OvershootInterpolator(1.5f))
-                    .setDuration(500)
-                    .withEndAction {
-                        windowManager.removeView(sheetOverlay)
-                    }
-                    .start()
-            }
+    /// Dismiss only [view]; no-op if it was already dismissed
+    private fun dismissOverlay(view: View) {
+        if (!overlays.remove(view)) return
+        animateOut(view)
+    }
+
+    private fun animateOut(sheetOverlay: View) {
+        ThreadUtils.runOnMainThread {
+            // Get views
+            val bg = sheetOverlay.findViewById<View>(R.id.overlay_background)
+            val quote = sheetOverlay.findViewById<View>(R.id.overlay_sheet_quote_panel)
+            val sheet = sheetOverlay.findViewById<LinearLayout>(R.id.overlay_sheet)
+
+            // Animate
+            bg.animate().alpha(0f).setDuration(400).start()
+            quote.animate().alpha(0f).setDuration(400).start()
+            sheet.animate()
+                .translationY(SLIDE_DOWN_END_Y)
+                .setInterpolator(OvershootInterpolator(1.5f))
+                .setDuration(500)
+                .withEndAction {
+                    windowManager.removeView(sheetOverlay)
+                }
+                .start()
         }
     }
 
@@ -126,6 +134,31 @@ class OverlayManager(
         }
     }
 
+
+    /// Show full screen countdown overlay that auto-dismisses after [delaySec]
+    fun showLaunchDelayOverlay(packageName: String, delaySec: Int, onFinished: () -> Unit) {
+        if (overlays.isNotEmpty()) return
+
+        ThreadUtils.runOnMainThread {
+            runCatching {
+                if (!haveOverlayPermission(context)) return@runOnMainThread
+
+                val view = OverlayBuilder.buildLaunchDelayOverlay(
+                    context = context,
+                    packageName = packageName,
+                    delaySec = delaySec,
+                    dismissOverlay = ::dismissOverlay,
+                    onFinished = onFinished,
+                )
+
+                Log.d(TAG, "showLaunchDelayOverlay: Showing launch delay overlay for $packageName")
+                windowManager.addView(view, sheetLayoutParams)
+                overlays.push(view)
+            }.getOrElse {
+                SharedPrefsHelper.insertCrashLogToPrefs(context, it)
+            }
+        }
+    }
 
     fun showToastOverlay(
         packageName: String,

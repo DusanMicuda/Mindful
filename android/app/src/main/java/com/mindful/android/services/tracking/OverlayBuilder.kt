@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -19,6 +20,7 @@ import com.mindful.android.utils.AppUtils
 import com.mindful.android.utils.DateTimeUtils
 import com.mindful.android.utils.MindfulQuotes
 import com.mindful.android.utils.ThreadUtils
+import kotlin.math.ceil
 
 object OverlayBuilder {
     @MainThread
@@ -75,29 +77,7 @@ object OverlayBuilder {
         // Inflate the custom layout for the dialog
         val inflater = LayoutInflater.from(context)
         val sheetView = inflater.inflate(R.layout.overlay_full_screen_layout, null)
-
-        // Set quote and author
-        val quoteTxt = sheetView.findViewById<TextView>(R.id.overlay_sheet_quote)
-        val quoteAuthorTxt = sheetView.findViewById<TextView>(R.id.overlay_sheet_quote_author)
-        val randomQuote = MindfulQuotes.getRandomQuote()
-        quoteTxt.text = buildString {
-            append("\"")
-            append(randomQuote.value)
-            append("\"")
-        }
-        quoteAuthorTxt.text = buildString {
-            append("— ")
-            append(randomQuote.key)
-        }
-
-        // Resolve app icon and label
-        val (appName, appIcon) = getAppLabelAndIcon(context, packageName)
-
-        // App infos
-        val appNameTxt = sheetView.findViewById<TextView>(R.id.overlay_sheet_app_name)
-        val appIconImg = sheetView.findViewById<ImageView>(R.id.overlay_sheet_app_icon)
-        appNameTxt.text = appName
-        appIconImg.setImageDrawable(appIcon)
+        val appName = bindHeader(context, sheetView, packageName)
 
         // Emergency button (Visible only if limit is exhausted)
         if (state.screenTimeUsed >= state.screenTimeLimit) {
@@ -209,6 +189,88 @@ object OverlayBuilder {
         }
 
         return sheetView
+    }
+
+    /// Full screen overlay with a live countdown, dismissed automatically when it finishes
+    @MainThread
+    fun buildLaunchDelayOverlay(
+        context: Context,
+        packageName: String,
+        delaySec: Int,
+        dismissOverlay: (View) -> Unit,
+        onFinished: () -> Unit,
+    ): View {
+        val view = LayoutInflater.from(context).inflate(R.layout.overlay_full_screen_layout, null)
+        val appName = bindHeader(context, view, packageName)
+
+        // Hide restriction-only views
+        view.findViewById<Button>(R.id.overlay_sheet_btn_emergency).visibility = View.GONE
+        view.findViewById<TextView>(R.id.overlay_sheet_limit_type).visibility = View.GONE
+        view.findViewById<LinearLayout>(R.id.overlay_sheet_limit_container).visibility = View.GONE
+
+        // Countdown
+        val countdownTxt = view.findViewById<TextView>(R.id.overlay_sheet_limit_info)
+        countdownTxt.text = context.getString(R.string.launch_delay_overlay_countdown, delaySec)
+        val timer = object : CountDownTimer(delaySec * 1000L, 1000L) {
+            override fun onTick(millisUntilFinished: Long) {
+                countdownTxt.text = context.getString(
+                    R.string.launch_delay_overlay_countdown,
+                    ceil(millisUntilFinished / 1000.0).toInt()
+                )
+            }
+
+            override fun onFinish() {
+                if (!view.isAttachedToWindow) return
+                dismissOverlay(view)
+                onFinished()
+            }
+        }
+        view.addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+            override fun onViewAttachedToWindow(v: View) {
+                timer.start()
+            }
+
+            override fun onViewDetachedFromWindow(v: View) {
+                timer.cancel()
+            }
+        })
+
+        // Close app button
+        val closeAppBtn = view.findViewById<Button>(R.id.overlay_sheet_btn_close_app)
+        closeAppBtn.text = context.getString(R.string.app_paused_overlay_button_close_app, appName)
+        closeAppBtn.setOnClickListener {
+            timer.cancel()
+            ThreadUtils.runOnMainThread {
+                val homeIntent = Intent(Intent.ACTION_MAIN)
+                homeIntent.addCategory(Intent.CATEGORY_HOME)
+                homeIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                context.applicationContext.startActivity(homeIntent)
+                dismissOverlay(view)
+            }
+        }
+
+        return view
+    }
+
+    /// Sets quote, app icon and name on the full screen layout; returns app name
+    private fun bindHeader(context: Context, view: View, packageName: String): String {
+        val quoteTxt = view.findViewById<TextView>(R.id.overlay_sheet_quote)
+        val quoteAuthorTxt = view.findViewById<TextView>(R.id.overlay_sheet_quote_author)
+        val randomQuote = MindfulQuotes.getRandomQuote()
+        quoteTxt.text = buildString {
+            append("\"")
+            append(randomQuote.value)
+            append("\"")
+        }
+        quoteAuthorTxt.text = buildString {
+            append("— ")
+            append(randomQuote.key)
+        }
+
+        val (appName, appIcon) = getAppLabelAndIcon(context, packageName)
+        view.findViewById<TextView>(R.id.overlay_sheet_app_name).text = appName
+        view.findViewById<ImageView>(R.id.overlay_sheet_app_icon).setImageDrawable(appIcon)
+        return appName
     }
 
 

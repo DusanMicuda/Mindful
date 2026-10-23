@@ -160,6 +160,41 @@ class AppDashboardRestrictions extends ConsumerWidget {
           ),
         ).sliver,
 
+        /// App launch delay
+        DefaultHero(
+          tag: HeroTags.appLaunchDelayTileTag(appInfo.packageName),
+          child: DefaultListTile(
+            enabled: !appInfo.isImpSysApp,
+            position: ItemPosition.mid,
+            titleText: context.locale.app_launch_delay_tile_title,
+            subtitleText: restriction.launchDelaySec > 0
+                ? context.locale
+                    .app_launch_delay_tile_subtitle(restriction.launchDelaySec)
+                : context.locale.app_limit_status_not_set,
+            leadingIcon: FluentIcons.hourglass_half_20_regular,
+            onPressed: () async {
+              final current = restriction.launchDelaySec;
+              final newValue = await showAppLaunchLimitDialog(
+                context: context,
+                heroTag: HeroTags.appLaunchDelayTileTag(appInfo.packageName),
+                initialCount: current,
+                max: 300,
+                title: context.locale.app_launch_delay_tile_title,
+                info: context.locale.app_launch_delay_picker_dialog_info,
+              );
+
+              if (newValue == null || newValue == current || !context.mounted) {
+                return;
+              }
+
+              ref.read(appsRestrictionsProvider.notifier).updateAppLaunchDelay(
+                    appInfo.packageName,
+                    newValue,
+                  );
+            },
+          ),
+        ).sliver,
+
         /// Active period
         DefaultExpandableListTile(
           enabled: !appInfo.isImpSysApp,

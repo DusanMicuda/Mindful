@@ -10,6 +10,7 @@ import com.mindful.android.R
 import com.mindful.android.generics.ServiceBinder
 import com.mindful.android.helpers.device.NotificationHelper
 import com.mindful.android.helpers.storage.SharedPrefsHelper
+import com.mindful.android.models.RestrictionState
 
 class MindfulTrackerService : Service() {
     companion object {
@@ -86,26 +87,42 @@ class MindfulTrackerService : Service() {
             val currentOrFutureState = restrictionManager.isAppRestricted(packageName)
             Log.d(TAG, "onNewAppLaunch: $packageName's evaluated state => $currentOrFutureState")
 
+            /// Already restricted, block sheet wins over launch delay
+            if (showBlockIfExhausted(packageName, currentOrFutureState)) return
+
+            /// Launch delay countdown; re-check block when it ends (limit may run out meanwhile)
+            val delaySec = restrictionManager.launchDelaySecOf(packageName)
+            if (delaySec > 0) {
+                overlayManager.showLaunchDelayOverlay(packageName, delaySec) {
+                    // Timer finishes on main thread; evaluation needs a worker
+                    Thread {
+                        runCatching {
+                            showBlockIfExhausted(
+                                packageName,
+                                restrictionManager.isAppRestricted(packageName),
+                            )
+                        }.onFailure { SharedPrefsHelper.insertCrashLogToPrefs(this, it) }
+                    }.start()
+                }
+            }
+
+            /// Under limit but will be exhausted in some time
             currentOrFutureState?.let {
-                /// Already restricted
-                if (it.timeLeftMillis <= 0L) {
-                    overlayManager.showSheetOverlay(
-                        packageName = packageName,
-                        restrictionState = it,
-                    )
-                }
-                /// Under limit but will be exhausted in some time
-                else {
-                    reminderManager.scheduleReminders(
-                        packageName = packageName,
-                        state = it,
-                    )
-                }
+                reminderManager.scheduleReminders(
+                    packageName = packageName,
+                    state = it,
+                )
             }
         } catch (e: Exception) {
             SharedPrefsHelper.insertCrashLogToPrefs(this, e)
             Log.e(TAG, "onNewAppLaunch: Failed to process new app launch event", e)
         }
+    }
+
+    private fun showBlockIfExhausted(packageName: String, state: RestrictionState?): Boolean {
+        if (state == null || state.timeLeftMillis > 0L) return false
+        overlayManager.showSheetOverlay(packageName = packageName, restrictionState = state)
+        return true
     }
 
     private fun stopIfNoUsage() {

@@ -2274,6 +2274,24 @@ abstract class AppLocalizations {
   /// **'Set how many times you can open this app each day. Once the limit is reached, it will be paused until midnight.'**
   String get app_launch_limit_picker_dialog_info;
 
+  /// No description provided for @app_launch_delay_tile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Launch delay'**
+  String get app_launch_delay_tile_title;
+
+  /// No description provided for @app_launch_delay_tile_subtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{seconds, plural, =1{Wait 1 second before opening.} other{Wait {seconds} seconds before opening.}}'**
+  String app_launch_delay_tile_subtitle(int seconds);
+
+  /// No description provided for @app_launch_delay_picker_dialog_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Set how many seconds you must wait each time you open this app. Set 0 to turn it off. Maximum 300.'**
+  String get app_launch_delay_picker_dialog_info;
+
   /// No description provided for @app_active_period_tile_title.
   ///
   /// In en, this message translates to:
