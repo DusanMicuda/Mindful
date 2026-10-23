@@ -89,6 +89,7 @@ NotificationSettings defaultNotificationSettingsModel = NotificationSettings(
 const defaultAppRestrictionModel = AppRestriction(
   appPackage: "",
   timerSec: 0,
+  sessionIntervalSec: 0,
   launchLimit: 0,
   activePeriodStart: TimeOfDayAdapter.zero(),
   activePeriodEnd: TimeOfDayAdapter.zero(),

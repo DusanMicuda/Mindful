@@ -1286,6 +1286,13 @@ class AppLocalizationsUk extends AppLocalizations {
       'Встановіть денний ліміт часу для цієї програми. Як тільки ви досягнете ліміту, програма буде призупинена до опівночі.';
 
   @override
+  String get app_session_interval_tile_title => 'Session interval';
+
+  @override
+  String get app_session_interval_picker_dialog_info =>
+      'Mindful will send you to the home screen after this much continuous use. Reopen the app to start a new session.';
+
+  @override
   String get usage_reminders_tile_title => 'Нагадування про використання';
 
   @override

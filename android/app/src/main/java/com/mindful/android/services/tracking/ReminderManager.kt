@@ -16,10 +16,40 @@ class ReminderManager(
     private val reminderTriggers: HashSet<Int> = HashSet(0)
     private var activeTimer: PreciseCountDownExecutor? = null
 
-    fun cancelReminders(): Boolean {
-        val reminderAwaiting = activeTimer != null
+    private var sessionTimer: PreciseCountDownExecutor? = null
+
+    private var sessionPackage: String? = null
+
+    @Synchronized
+    fun scheduleSessionKick(packageName: String, intervalSec: Int, onKick: (String) -> Unit) {
+        if (sessionTimer != null && sessionPackage == packageName) return
+        sessionTimer?.cancel()
+        val ms = intervalSec * 1000L
+        sessionPackage = packageName
+        sessionTimer = PreciseCountDownExecutor(
+            duration = ms,
+            interval = ms,
+            timeUnit = TimeUnit.MILLISECONDS,
+            onFinish = {
+                synchronized(this) {
+                    sessionTimer = null
+                    sessionPackage = null
+                }
+                onKick(packageName)
+            },
+        ).also { it.start() }
+    }
+
+    @Synchronized
+    fun cancelReminders(keepSessionFor: String? = null): Boolean {
+        val reminderAwaiting = activeTimer != null || sessionTimer != null
         activeTimer?.cancel()
         activeTimer = null
+        if (!(keepSessionFor != null && keepSessionFor == sessionPackage && sessionTimer != null)) {
+            sessionTimer?.cancel()
+            sessionTimer = null
+            sessionPackage = null
+        }
         reminderTriggers.clear()
         Log.d(TAG, "cancelReminders: All reminders cancelled")
 

@@ -1281,6 +1281,13 @@ class AppLocalizationsPt extends AppLocalizations {
       'Defina um limite diário de tempo para este aplicativo. Quando seu limite for atingido, o aplicativo será pausado até a meia-noite.';
 
   @override
+  String get app_session_interval_tile_title => 'Session interval';
+
+  @override
+  String get app_session_interval_picker_dialog_info =>
+      'Mindful will send you to the home screen after this much continuous use. Reopen the app to start a new session.';
+
+  @override
   String get usage_reminders_tile_title => 'Lembretes de uso';
 
   @override

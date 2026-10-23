@@ -1268,6 +1268,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'حدد حدا زمنيا يوميا لهذا التطبيق. عند الوصول إلى الحد، سيتم إيقاف التطبيق حتى منتصف الليل.';
 
   @override
+  String get app_session_interval_tile_title => 'Session interval';
+
+  @override
+  String get app_session_interval_picker_dialog_info =>
+      'Mindful will send you to the home screen after this much continuous use. Reopen the app to start a new session.';
+
+  @override
   String get usage_reminders_tile_title => 'تذكيرات الاستخدام';
 
   @override

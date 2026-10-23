@@ -61,6 +61,10 @@ class HeroTags {
   static String appTimerTileTag(String package) =>
       "appDashboard.timerTile.$package";
 
+  /// Generates a tag for an app session interval tile based on the provided package name.
+  static String appSessionIntervalTileTag(String package) =>
+      "appDashboard.sessionIntervalTile.$package";
+
   /// Generates a tag for an app launch limit tile based on the provided package name.
   static String appLaunchLimitTileTag(String package) =>
       "appDashboard.launchLimitTile.$package";

@@ -2244,6 +2244,18 @@ abstract class AppLocalizations {
   /// **'Set a daily time limit for this app. Once your limit is reached, the app will be paused until midnight.'**
   String get app_timer_picker_dialog_info;
 
+  /// No description provided for @app_session_interval_tile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Session interval'**
+  String get app_session_interval_tile_title;
+
+  /// No description provided for @app_session_interval_picker_dialog_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Mindful will send you to the home screen after this much continuous use. Reopen the app to start a new session.'**
+  String get app_session_interval_picker_dialog_info;
+
   /// No description provided for @usage_reminders_tile_title.
   ///
   /// In en, this message translates to:

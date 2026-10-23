@@ -26,6 +26,8 @@ class RestrictionManager(
 
     // Restrictions
     private var appsRestrictions = HashMap<String, AppRestriction>()
+
+    fun getAppRestriction(packageName: String): AppRestriction? = appsRestrictions[packageName]
     private var restrictionGroups = HashMap<Int, RestrictionGroup>()
 
     // Focus

@@ -7,9 +7,13 @@ import android.util.Log
 import androidx.annotation.WorkerThread
 import com.mindful.android.AppConstants
 import com.mindful.android.R
+import com.mindful.android.enums.RestrictionType
 import com.mindful.android.generics.ServiceBinder
 import com.mindful.android.helpers.device.NotificationHelper
 import com.mindful.android.helpers.storage.SharedPrefsHelper
+import com.mindful.android.models.RestrictionState
+import com.mindful.android.services.accessibility.MindfulAccessibilityService
+import com.mindful.android.utils.Utils
 
 class MindfulTrackerService : Service() {
     companion object {
@@ -79,7 +83,7 @@ class MindfulTrackerService : Service() {
     @WorkerThread
     private fun onNewAppLaunch(packageName: String) {
         try {
-            reminderManager.cancelReminders()
+            reminderManager.cancelReminders(keepSessionFor = packageName)
             overlayManager.dismissSheetOverlay()
 
             /// check current restrictions
@@ -102,9 +106,34 @@ class MindfulTrackerService : Service() {
                     )
                 }
             }
+
+            if (currentOrFutureState == null || currentOrFutureState.timeLeftMillis > 0L) {
+                restrictionManager.getAppRestriction(packageName)?.sessionIntervalSec
+                    ?.takeIf { it > 0 }
+                    ?.let { reminderManager.scheduleSessionKick(packageName, it, ::kickOut) }
+            }
         } catch (e: Exception) {
             SharedPrefsHelper.insertCrashLogToPrefs(this, e)
             Log.e(TAG, "onNewAppLaunch: Failed to process new app launch event", e)
+        }
+    }
+
+    private fun kickOut(packageName: String) {
+        try {
+            if (Utils.isServiceRunning(this, MindfulAccessibilityService::class.java)) {
+                startService(
+                    Intent(applicationContext, MindfulAccessibilityService::class.java)
+                        .setAction(MindfulAccessibilityService.ACTION_PERFORM_HOME_PRESS)
+                )
+            } else {
+                overlayManager.showSheetOverlay(
+                    packageName,
+                    RestrictionState(type = RestrictionType.SESSION_INTERVAL, timeLeftMillis = 0),
+                )
+            }
+        } catch (e: Exception) {
+            SharedPrefsHelper.insertCrashLogToPrefs(this, e)
+            Log.e(TAG, "kickOut: Failed to kick out $packageName", e)
         }
     }
 

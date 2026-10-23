@@ -61,6 +61,20 @@ class AppsRestrictionsNotifier
     _updateStateDbAndServices(appPackage, restriction);
   }
 
+  /// Updates the session interval (in seconds, 0 = off) for a specific app package.
+  ///
+  /// Anyway updated the platform-specific service.
+  Future<void> updateSessionInterval(String appPackage, int sec) async {
+    final restriction = state[appPackage]?.copyWith(sessionIntervalSec: sec) ??
+        defaultAppRestrictionModel.copyWith(
+          appPackage: appPackage,
+          sessionIntervalSec: sec,
+        );
+
+    /// Update database and state
+    _updateStateDbAndServices(appPackage, restriction);
+  }
+
   /// Set reminder type for a specific app package if package is not empty.
   ///
   /// Anyway call the platform channel service.
@@ -216,6 +230,7 @@ class AppsRestrictionsNotifier
           (e) =>
               _installedApps.contains(e.appPackage) &&
               (e.timerSec > 0 ||
+                  e.sessionIntervalSec > 0 ||
                   e.launchLimit > 0 ||
                   e.periodDurationInMins > 0 ||
                   e.associatedGroupId != null),

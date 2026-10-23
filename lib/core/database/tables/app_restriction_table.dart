@@ -24,6 +24,9 @@ class AppRestrictionTable extends Table {
   /// The timer set for the app in SECONDS
   IntColumn get timerSec => integer().withDefault(const Constant(0))();
 
+  IntColumn get sessionIntervalSec =>
+      integer().withDefault(const Constant(0))();
+
   /// The number of times user can launch this app
   IntColumn get launchLimit => integer().withDefault(const Constant(0))();
 

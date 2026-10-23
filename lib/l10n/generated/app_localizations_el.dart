@@ -1288,6 +1288,13 @@ class AppLocalizationsEl extends AppLocalizations {
       'Όρισε ένα ημερήσιο χρονικό όριο για αυτήν την εφαρμογή. Μόλις συμπληρωθεί το όριό σου, η εφαρμογή θα τεθεί σε παύση μέχρι τα μεσάνυχτα.';
 
   @override
+  String get app_session_interval_tile_title => 'Session interval';
+
+  @override
+  String get app_session_interval_picker_dialog_info =>
+      'Mindful will send you to the home screen after this much continuous use. Reopen the app to start a new session.';
+
+  @override
   String get usage_reminders_tile_title => 'Usage reminders';
 
   @override

@@ -23,6 +23,14 @@ class $AppRestrictionTableTable extends AppRestrictionTable
       type: DriftSqlType.int,
       requiredDuringInsert: false,
       defaultValue: const Constant(0));
+  static const VerificationMeta _sessionIntervalSecMeta =
+      const VerificationMeta('sessionIntervalSec');
+  @override
+  late final GeneratedColumn<int> sessionIntervalSec = GeneratedColumn<int>(
+      'session_interval_sec', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultValue: const Constant(0));
   static const VerificationMeta _launchLimitMeta =
       const VerificationMeta('launchLimit');
   @override
@@ -88,6 +96,7 @@ class $AppRestrictionTableTable extends AppRestrictionTable
   List<GeneratedColumn> get $columns => [
         appPackage,
         timerSec,
+        sessionIntervalSec,
         launchLimit,
         activePeriodStart,
         activePeriodEnd,
@@ -117,6 +126,12 @@ class $AppRestrictionTableTable extends AppRestrictionTable
     if (data.containsKey('timer_sec')) {
       context.handle(_timerSecMeta,
           timerSec.isAcceptableOrUnknown(data['timer_sec']!, _timerSecMeta));
+    }
+    if (data.containsKey('session_interval_sec')) {
+      context.handle(
+          _sessionIntervalSecMeta,
+          sessionIntervalSec.isAcceptableOrUnknown(
+              data['session_interval_sec']!, _sessionIntervalSecMeta));
     }
     if (data.containsKey('launch_limit')) {
       context.handle(
@@ -155,6 +170,8 @@ class $AppRestrictionTableTable extends AppRestrictionTable
           .read(DriftSqlType.string, data['${effectivePrefix}app_package'])!,
       timerSec: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}timer_sec'])!,
+      sessionIntervalSec: attachedDatabase.typeMapping.read(
+          DriftSqlType.int, data['${effectivePrefix}session_interval_sec'])!,
       launchLimit: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}launch_limit'])!,
       activePeriodStart: $AppRestrictionTableTable.$converteractivePeriodStart
@@ -195,6 +212,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
 
   /// The timer set for the app in SECONDS
   final int timerSec;
+  final int sessionIntervalSec;
 
   /// The number of times user can launch this app
   final int launchLimit;
@@ -221,6 +239,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
   const AppRestriction(
       {required this.appPackage,
       required this.timerSec,
+      required this.sessionIntervalSec,
       required this.launchLimit,
       required this.activePeriodStart,
       required this.activePeriodEnd,
@@ -233,6 +252,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
     final map = <String, Expression>{};
     map['app_package'] = Variable<String>(appPackage);
     map['timer_sec'] = Variable<int>(timerSec);
+    map['session_interval_sec'] = Variable<int>(sessionIntervalSec);
     map['launch_limit'] = Variable<int>(launchLimit);
     {
       map['active_period_start'] = Variable<int>($AppRestrictionTableTable
@@ -260,6 +280,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
     return AppRestrictionTableCompanion(
       appPackage: Value(appPackage),
       timerSec: Value(timerSec),
+      sessionIntervalSec: Value(sessionIntervalSec),
       launchLimit: Value(launchLimit),
       activePeriodStart: Value(activePeriodStart),
       activePeriodEnd: Value(activePeriodEnd),
@@ -278,6 +299,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
     return AppRestriction(
       appPackage: serializer.fromJson<String>(json['appPackage']),
       timerSec: serializer.fromJson<int>(json['timerSec']),
+      sessionIntervalSec: serializer.fromJson<int>(json['sessionIntervalSec']),
       launchLimit: serializer.fromJson<int>(json['launchLimit']),
       activePeriodStart: $AppRestrictionTableTable.$converteractivePeriodStart
           .fromJson(serializer.fromJson<dynamic>(json['activePeriodStart'])),
@@ -297,6 +319,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
     return <String, dynamic>{
       'appPackage': serializer.toJson<String>(appPackage),
       'timerSec': serializer.toJson<int>(timerSec),
+      'sessionIntervalSec': serializer.toJson<int>(sessionIntervalSec),
       'launchLimit': serializer.toJson<int>(launchLimit),
       'activePeriodStart': serializer.toJson<dynamic>($AppRestrictionTableTable
           .$converteractivePeriodStart
@@ -316,6 +339,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
   AppRestriction copyWith(
           {String? appPackage,
           int? timerSec,
+          int? sessionIntervalSec,
           int? launchLimit,
           TimeOfDayAdapter? activePeriodStart,
           TimeOfDayAdapter? activePeriodEnd,
@@ -326,6 +350,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
       AppRestriction(
         appPackage: appPackage ?? this.appPackage,
         timerSec: timerSec ?? this.timerSec,
+        sessionIntervalSec: sessionIntervalSec ?? this.sessionIntervalSec,
         launchLimit: launchLimit ?? this.launchLimit,
         activePeriodStart: activePeriodStart ?? this.activePeriodStart,
         activePeriodEnd: activePeriodEnd ?? this.activePeriodEnd,
@@ -341,6 +366,9 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
       appPackage:
           data.appPackage.present ? data.appPackage.value : this.appPackage,
       timerSec: data.timerSec.present ? data.timerSec.value : this.timerSec,
+      sessionIntervalSec: data.sessionIntervalSec.present
+          ? data.sessionIntervalSec.value
+          : this.sessionIntervalSec,
       launchLimit:
           data.launchLimit.present ? data.launchLimit.value : this.launchLimit,
       activePeriodStart: data.activePeriodStart.present
@@ -369,6 +397,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
     return (StringBuffer('AppRestriction(')
           ..write('appPackage: $appPackage, ')
           ..write('timerSec: $timerSec, ')
+          ..write('sessionIntervalSec: $sessionIntervalSec, ')
           ..write('launchLimit: $launchLimit, ')
           ..write('activePeriodStart: $activePeriodStart, ')
           ..write('activePeriodEnd: $activePeriodEnd, ')
@@ -384,6 +413,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
   int get hashCode => Object.hash(
       appPackage,
       timerSec,
+      sessionIntervalSec,
       launchLimit,
       activePeriodStart,
       activePeriodEnd,
@@ -397,6 +427,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
       (other is AppRestriction &&
           other.appPackage == this.appPackage &&
           other.timerSec == this.timerSec &&
+          other.sessionIntervalSec == this.sessionIntervalSec &&
           other.launchLimit == this.launchLimit &&
           other.activePeriodStart == this.activePeriodStart &&
           other.activePeriodEnd == this.activePeriodEnd &&
@@ -409,6 +440,7 @@ class AppRestriction extends DataClass implements Insertable<AppRestriction> {
 class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
   final Value<String> appPackage;
   final Value<int> timerSec;
+  final Value<int> sessionIntervalSec;
   final Value<int> launchLimit;
   final Value<TimeOfDayAdapter> activePeriodStart;
   final Value<TimeOfDayAdapter> activePeriodEnd;
@@ -420,6 +452,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
   const AppRestrictionTableCompanion({
     this.appPackage = const Value.absent(),
     this.timerSec = const Value.absent(),
+    this.sessionIntervalSec = const Value.absent(),
     this.launchLimit = const Value.absent(),
     this.activePeriodStart = const Value.absent(),
     this.activePeriodEnd = const Value.absent(),
@@ -432,6 +465,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
   AppRestrictionTableCompanion.insert({
     required String appPackage,
     this.timerSec = const Value.absent(),
+    this.sessionIntervalSec = const Value.absent(),
     this.launchLimit = const Value.absent(),
     this.activePeriodStart = const Value.absent(),
     this.activePeriodEnd = const Value.absent(),
@@ -444,6 +478,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
   static Insertable<AppRestriction> custom({
     Expression<String>? appPackage,
     Expression<int>? timerSec,
+    Expression<int>? sessionIntervalSec,
     Expression<int>? launchLimit,
     Expression<int>? activePeriodStart,
     Expression<int>? activePeriodEnd,
@@ -456,6 +491,8 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
     return RawValuesInsertable({
       if (appPackage != null) 'app_package': appPackage,
       if (timerSec != null) 'timer_sec': timerSec,
+      if (sessionIntervalSec != null)
+        'session_interval_sec': sessionIntervalSec,
       if (launchLimit != null) 'launch_limit': launchLimit,
       if (activePeriodStart != null) 'active_period_start': activePeriodStart,
       if (activePeriodEnd != null) 'active_period_end': activePeriodEnd,
@@ -471,6 +508,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
   AppRestrictionTableCompanion copyWith(
       {Value<String>? appPackage,
       Value<int>? timerSec,
+      Value<int>? sessionIntervalSec,
       Value<int>? launchLimit,
       Value<TimeOfDayAdapter>? activePeriodStart,
       Value<TimeOfDayAdapter>? activePeriodEnd,
@@ -482,6 +520,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
     return AppRestrictionTableCompanion(
       appPackage: appPackage ?? this.appPackage,
       timerSec: timerSec ?? this.timerSec,
+      sessionIntervalSec: sessionIntervalSec ?? this.sessionIntervalSec,
       launchLimit: launchLimit ?? this.launchLimit,
       activePeriodStart: activePeriodStart ?? this.activePeriodStart,
       activePeriodEnd: activePeriodEnd ?? this.activePeriodEnd,
@@ -501,6 +540,9 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
     }
     if (timerSec.present) {
       map['timer_sec'] = Variable<int>(timerSec.value);
+    }
+    if (sessionIntervalSec.present) {
+      map['session_interval_sec'] = Variable<int>(sessionIntervalSec.value);
     }
     if (launchLimit.present) {
       map['launch_limit'] = Variable<int>(launchLimit.value);
@@ -541,6 +583,7 @@ class AppRestrictionTableCompanion extends UpdateCompanion<AppRestriction> {
     return (StringBuffer('AppRestrictionTableCompanion(')
           ..write('appPackage: $appPackage, ')
           ..write('timerSec: $timerSec, ')
+          ..write('sessionIntervalSec: $sessionIntervalSec, ')
           ..write('launchLimit: $launchLimit, ')
           ..write('activePeriodStart: $activePeriodStart, ')
           ..write('activePeriodEnd: $activePeriodEnd, ')
@@ -6040,6 +6083,7 @@ typedef $$AppRestrictionTableTableCreateCompanionBuilder
     = AppRestrictionTableCompanion Function({
   required String appPackage,
   Value<int> timerSec,
+  Value<int> sessionIntervalSec,
   Value<int> launchLimit,
   Value<TimeOfDayAdapter> activePeriodStart,
   Value<TimeOfDayAdapter> activePeriodEnd,
@@ -6053,6 +6097,7 @@ typedef $$AppRestrictionTableTableUpdateCompanionBuilder
     = AppRestrictionTableCompanion Function({
   Value<String> appPackage,
   Value<int> timerSec,
+  Value<int> sessionIntervalSec,
   Value<int> launchLimit,
   Value<TimeOfDayAdapter> activePeriodStart,
   Value<TimeOfDayAdapter> activePeriodEnd,
@@ -6077,6 +6122,10 @@ class $$AppRestrictionTableTableFilterComposer
 
   ColumnFilters<int> get timerSec => $composableBuilder(
       column: $table.timerSec, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<int> get sessionIntervalSec => $composableBuilder(
+      column: $table.sessionIntervalSec,
+      builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get launchLimit => $composableBuilder(
       column: $table.launchLimit, builder: (column) => ColumnFilters(column));
@@ -6124,6 +6173,10 @@ class $$AppRestrictionTableTableOrderingComposer
   ColumnOrderings<int> get timerSec => $composableBuilder(
       column: $table.timerSec, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<int> get sessionIntervalSec => $composableBuilder(
+      column: $table.sessionIntervalSec,
+      builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<int> get launchLimit => $composableBuilder(
       column: $table.launchLimit, builder: (column) => ColumnOrderings(column));
 
@@ -6166,6 +6219,9 @@ class $$AppRestrictionTableTableAnnotationComposer
 
   GeneratedColumn<int> get timerSec =>
       $composableBuilder(column: $table.timerSec, builder: (column) => column);
+
+  GeneratedColumn<int> get sessionIntervalSec => $composableBuilder(
+      column: $table.sessionIntervalSec, builder: (column) => column);
 
   GeneratedColumn<int> get launchLimit => $composableBuilder(
       column: $table.launchLimit, builder: (column) => column);
@@ -6223,6 +6279,7 @@ class $$AppRestrictionTableTableTableManager extends RootTableManager<
           updateCompanionCallback: ({
             Value<String> appPackage = const Value.absent(),
             Value<int> timerSec = const Value.absent(),
+            Value<int> sessionIntervalSec = const Value.absent(),
             Value<int> launchLimit = const Value.absent(),
             Value<TimeOfDayAdapter> activePeriodStart = const Value.absent(),
             Value<TimeOfDayAdapter> activePeriodEnd = const Value.absent(),
@@ -6235,6 +6292,7 @@ class $$AppRestrictionTableTableTableManager extends RootTableManager<
               AppRestrictionTableCompanion(
             appPackage: appPackage,
             timerSec: timerSec,
+            sessionIntervalSec: sessionIntervalSec,
             launchLimit: launchLimit,
             activePeriodStart: activePeriodStart,
             activePeriodEnd: activePeriodEnd,
@@ -6247,6 +6305,7 @@ class $$AppRestrictionTableTableTableManager extends RootTableManager<
           createCompanionCallback: ({
             required String appPackage,
             Value<int> timerSec = const Value.absent(),
+            Value<int> sessionIntervalSec = const Value.absent(),
             Value<int> launchLimit = const Value.absent(),
             Value<TimeOfDayAdapter> activePeriodStart = const Value.absent(),
             Value<TimeOfDayAdapter> activePeriodEnd = const Value.absent(),
@@ -6259,6 +6318,7 @@ class $$AppRestrictionTableTableTableManager extends RootTableManager<
               AppRestrictionTableCompanion.insert(
             appPackage: appPackage,
             timerSec: timerSec,
+            sessionIntervalSec: sessionIntervalSec,
             launchLimit: launchLimit,
             activePeriodStart: activePeriodStart,
             activePeriodEnd: activePeriodEnd,

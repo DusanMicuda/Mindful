@@ -19,6 +19,11 @@ data class AppRestriction(
     val timerSec: Int = 0,
 
     /**
+     * Session interval for the app, in seconds.
+     */
+    val sessionIntervalSec: Int = 0,
+
+    /**
      * Launch limit per day.
      */
     val launchLimit: Int = 0,
@@ -52,6 +57,7 @@ data class AppRestriction(
             return AppRestriction(
                 appPackage = jsonObject.optString("appPackage", ""),
                 timerSec = jsonObject.optInt("timerSec", 0),
+                sessionIntervalSec = jsonObject.optInt("sessionIntervalSec", 0),
                 launchLimit = jsonObject.optInt("launchLimit", 0),
                 activePeriodStart = jsonObject.optInt("activePeriodStart", 0),
                 activePeriodEnd = jsonObject.optInt("activePeriodEnd", 0),

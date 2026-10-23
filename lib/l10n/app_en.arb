@@ -475,6 +475,8 @@
     "app_limit_status_not_set": "Not set",
     "app_timer_tile_title": "App timer",
     "app_timer_picker_dialog_info": "Set a daily time limit for this app. Once your limit is reached, the app will be paused until midnight.",
+    "app_session_interval_tile_title": "Session interval",
+    "app_session_interval_picker_dialog_info": "Mindful will send you to the home screen after this much continuous use. Reopen the app to start a new session.",
     "usage_reminders_tile_title": "Usage reminders",
     "usage_reminders_tile_subtitle": "Gentle nudges when using timed apps.",
     "app_launch_limit_tile_title": "Launch limit",

@@ -47,6 +47,8 @@
     <string name="app_paused_restriction_bedtime_mode">Bedtime mode</string>
     <string name="app_paused_restriction_launch_count">Launch count</string>
     <string name="app_paused_restriction_app_timer">App timer</string>
+    <string name="app_paused_restriction_session_interval">Session interval</string>
+    <string name="app_paused_reason_session_interval">Session time is up. Reopen the app to continue.</string>
     <string name="app_paused_restriction_app_active_period">App active period</string>
     <string name="app_paused_restriction_group_timer">Group timer</string>
     <string name="app_paused_restriction_group_active_period">Group active period</string>

@@ -16,6 +16,7 @@ import 'package:mindful/config/navigation/app_routes.dart';
 import 'package:mindful/core/enums/item_position.dart';
 import 'package:mindful/core/enums/reminder_type.dart';
 import 'package:mindful/core/extensions/ext_build_context.dart';
+import 'package:mindful/core/extensions/ext_duration.dart';
 import 'package:mindful/core/extensions/ext_widget.dart';
 import 'package:mindful/core/utils/default_models_utils.dart';
 import 'package:mindful/config/hero_tags.dart';
@@ -30,6 +31,7 @@ import 'package:mindful/ui/common/default_expandable_list_tile.dart';
 import 'package:mindful/ui/common/default_list_tile.dart';
 import 'package:mindful/ui/common/styled_text.dart';
 import 'package:mindful/ui/dialogs/app_launch_limit_dialog.dart';
+import 'package:mindful/ui/dialogs/timer_picker_dialog.dart';
 import 'package:mindful/ui/screens/app_dashboard/app_internet_tile.dart';
 import 'package:mindful/ui/screens/app_dashboard/app_timer_tile.dart';
 import 'package:mindful/ui/transitions/default_hero.dart';
@@ -74,6 +76,35 @@ class AppDashboardRestrictions extends ConsumerWidget {
           appInfo.packageName,
           newLimit ?? launchLimit,
         );
+  }
+
+  void _onSessionIntervalPressed({
+    required BuildContext context,
+    required WidgetRef ref,
+    required int sessionIntervalSec,
+  }) async {
+    /// If restricted by invincible mode
+    final isInvincibleRestricted = ref.read(parentalControlsProvider
+            .select((v) => v.isInvincibleModeOn && v.includeAppsTimer)) &&
+        !ref.read(parentalControlsProvider.notifier).isBetweenInvincibleWindow;
+
+    if (isInvincibleRestricted && sessionIntervalSec > 0) {
+      context.showSnackAlert(context.locale.invincible_mode_snack_alert);
+      return;
+    }
+
+    final newInterval = await showAppTimerPicker(
+      appInfo: appInfo,
+      heroTag: HeroTags.appSessionIntervalTileTag(appInfo.packageName),
+      context: context,
+      initialTime: sessionIntervalSec,
+      info: context.locale.app_session_interval_picker_dialog_info,
+    );
+
+    if (newInterval == null || newInterval == sessionIntervalSec) return;
+    ref
+        .read(appsRestrictionsProvider.notifier)
+        .updateSessionInterval(appInfo.packageName, newInterval);
   }
 
   @override
@@ -129,6 +160,25 @@ class AppDashboardRestrictions extends ConsumerWidget {
             ).sliver,
           ),
         ),
+
+        /// Session interval
+        DefaultHero(
+          tag: HeroTags.appSessionIntervalTileTag(appInfo.packageName),
+          child: DefaultListTile(
+            enabled: !appInfo.isImpSysApp,
+            position: ItemPosition.mid,
+            titleText: context.locale.app_session_interval_tile_title,
+            subtitleText: restriction.sessionIntervalSec > 0
+                ? restriction.sessionIntervalSec.seconds.toTimeFull(context)
+                : context.locale.app_limit_status_not_set,
+            leadingIcon: FluentIcons.arrow_exit_20_regular,
+            onPressed: () => _onSessionIntervalPressed(
+              context: context,
+              ref: ref,
+              sessionIntervalSec: restriction.sessionIntervalSec,
+            ),
+          ),
+        ).sliver,
 
         /// App launch limit
         DefaultHero(

@@ -1184,6 +1184,13 @@ class AppLocalizationsZh extends AppLocalizations {
       '为此应用程序设置每日时间限制。一旦达到限制，应用程序将暂停，直到午夜。';
 
   @override
+  String get app_session_interval_tile_title => 'Session interval';
+
+  @override
+  String get app_session_interval_picker_dialog_info =>
+      'Mindful will send you to the home screen after this much continuous use. Reopen the app to start a new session.';
+
+  @override
   String get usage_reminders_tile_title => '使用提醒';
 
   @override

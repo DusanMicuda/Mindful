@@ -28,6 +28,7 @@ Future<int?> showAppTimerPicker({
   required BuildContext context,
   required Object heroTag,
   required int initialTime,
+  String? info,
 }) async =>
     await Navigator.of(context).push<int>(
       HeroPageRoute(
@@ -35,7 +36,7 @@ Future<int?> showAppTimerPicker({
           heroTag: heroTag,
           icon: ApplicationIcon(appInfo: appInfo),
           title: appInfo.name,
-          info: context.locale.app_timer_picker_dialog_info,
+          info: info ?? context.locale.app_timer_picker_dialog_info,
           positiveButtonLabel: context.locale.dialog_button_set,
           initialTimeInSec: initialTime,
         ),
